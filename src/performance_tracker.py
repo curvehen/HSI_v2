@@ -5,15 +5,15 @@ from config import PREDICTION_HISTORY_PATH, PERFORMANCE_LOG_PATH
 
 
 def log_prediction(prediction_dict):
-    """
-    每次predict.py跑完, 將預測結果append落歷史CSV, 等之後可以同實際結果比較。
-    """
     os.makedirs(os.path.dirname(PREDICTION_HISTORY_PATH), exist_ok=True)
     row = pd.DataFrame([prediction_dict])
 
     if os.path.exists(PREDICTION_HISTORY_PATH):
         existing = pd.read_csv(PREDICTION_HISTORY_PATH)
-        existing = existing[existing["run_date"] != prediction_dict["run_date"]]
+        # 同時比對 run_date 同 target, 避免唔同股票互相覆蓋
+        mask = ~((existing["run_date"] == prediction_dict["run_date"]) &
+                 (existing.get("target", "") == prediction_dict.get("target", "")))
+        existing = existing[mask]
         combined = pd.concat([existing, row], ignore_index=True)
     else:
         combined = row
