@@ -6,6 +6,7 @@ from src.lstm_model import train_lstm, predict_lstm, SEQ_LEN
 from src.ensemble import stack_predictions, agreement_score
 from src.garch_model import fit_garch_forecast
 from src.risk import predict_next_ohlc, compute_entry_exit
+from src.news_fetch import fetch_latest_news
 
 
 def predict_single_ticker(label, ticker, benchmark_ticker="^HSI", start="2015-01-01"):
@@ -100,6 +101,7 @@ def predict_single_ticker(label, ticker, benchmark_ticker="^HSI", start="2015-01
             "成交量異動_vol_ratio": round(_safe_float(latest_row.get("vol_ratio"), 1.0), 3),
             "ATR14": round(atr, 2),
             "ATR百分比_atr_pct": round(_safe_float(latest_row.get("atr_pct")), 5),
+            "news_headlines": fetch_latest_news(ticker, max_items=3),
         }
 
         return {
