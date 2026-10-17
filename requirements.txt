@@ -1,0 +1,10 @@
+yfinance
+pandas
+numpy
+scipy
+scikit-learn
+xgboost
+lightgbm
+arch
+tensorflow
+joblib
