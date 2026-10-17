@@ -8,3 +8,4 @@ lightgbm
 arch
 tensorflow
 joblib
+optuna
