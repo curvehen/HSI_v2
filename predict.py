@@ -84,13 +84,18 @@ def main():
         confidence_filter_pass = bool(strong_confidence and agree != "disagree")
     }
 
-    print(json.dumps(output, indent=2, ensure_ascii=False))
+        print(json.dumps(output, indent=2, ensure_ascii=False))
 
     os.makedirs("predictions", exist_ok=True)
     with open("predictions/latest_prediction.json", "w") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print("\n預測已存至 predictions/latest_prediction.json")
+    from src.performance_tracker import log_prediction
+    log_prediction(output)
+
+    print("\n預測已存至 predictions/latest_prediction.json 同 prediction_history.csv")
+
+
 
 
 if __name__ == "__main__":
