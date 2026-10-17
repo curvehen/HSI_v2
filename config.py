@@ -44,5 +44,22 @@ LSTM_RETRAIN_FREQ_DAYS = 5
 TREE_RETRAIN_FREQ_DAYS = 1
 MIN_TRAIN_HISTORY = 500
 
+# ---- 自我學習機制設定 ----
+PERFORMANCE_LOG_PATH = "predictions/performance_log.csv"
+PREDICTION_HISTORY_PATH = "predictions/prediction_history.csv"
+CHAMPION_PARAMS_PATH = "models_store/champion_params.json"
+CHALLENGER_PARAMS_PATH = "models_store/challenger_params.json"
+
+DRIFT_WINDOW = 30            # 滾動窗口: 最近30個預測
+DRIFT_MIN_SAMPLES = 20       # 最少樣本數先做drift檢定
+DRIFT_ACCURACY_FLOOR = 0.48  # 滾動準確度跌穿呢個水平 -> 觸發警報
+
+HYPEROPT_N_TRIALS = 30       # Optuna搜索次數
+HYPEROPT_MIN_HISTORY = 600   # 做hyperparameter search要最少幾多日數據
+PARAM_CHANGE_MAX_PCT = 0.3   # 單次參數變動唔可以超過30% (guardrail)
+
+CHALLENGER_MIN_IMPROVEMENT = 0.02  # challenger嘅sharpe要高過champion至少0.02先取代
+CHALLENGER_MIN_TEST_TRADES = 50    # challenger驗證至少要有50筆交易先可信
+
 MODEL_DIR = "models_store"
 PRED_DIR = "predictions"
