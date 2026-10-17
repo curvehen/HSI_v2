@@ -25,3 +25,17 @@ WALK_FORWARD_STEP = 60
 
 MODEL_DIR = "models_store"
 PRED_DIR = "predictions"
+
+# 加喺原本config.py後面
+
+# AH股對照表 (H股代碼 -> 對應A股代碼)
+AH_PAIRS = {
+    "1398.HK": "601398.SS",  # 建設銀行
+    "0939.HK": "601939.SS",  # 建設銀行 (另一代碼, 視乎實際可用性自行調整)
+    "2318.HK": "601318.SS",  # 平安
+    "0386.HK": "600028.SS",  # 中石化
+    "0857.HK": "601857.SS",  # 中石油
+}
+
+HSTECH_TICKER = "^HSTECH"
+USDCNH_TICKER = "USDCNH=X"
