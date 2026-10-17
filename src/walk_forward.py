@@ -4,22 +4,25 @@ from config import WALK_FORWARD_TRAIN_WINDOW, WALK_FORWARD_TEST_WINDOW, WALK_FOR
 from src.features import FEATURE_COLUMNS
 from src.models import (train_logistic, train_xgb, train_lgb,
                           predict_proba_logistic, predict_proba_tree)
-from src.lstm_model import train_lstm, make_sequences, predict_lstm, SEQ_LEN
+from src.lstm_model import train_lstm, predict_lstm, SEQ_LEN
 from src.ensemble import stack_predictions, agreement_score
 from src.garch_model import fit_garch_forecast
 
+
 def walk_forward_run(df):
-    """
-    滾動窗口: train N日 -> test接下來M日 -> 向前移動Step日, 重複
-    每一步都係真正out-of-sample, 避免look-ahead
-    """
     results = []
     n = len(df)
     start = 0
 
+    if n < WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW:
+        raise ValueError(
+            f"數據量不足({n}日), 無法進行walk-forward (需要最少"
+            f"{WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW}日)"
+        )
+
     while start + WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW <= n:
-        train_df = df.iloc[start : start + WALK_FORWARD_TRAIN_WINDOW]
-        test_df = df.iloc[start + WALK_FORWARD_TRAIN_WINDOW :
+        train_df = df.iloc[start: start + WALK_FORWARD_TRAIN_WINDOW]
+        test_df = df.iloc[start + WALK_FORWARD_TRAIN_WINDOW:
                            start + WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW]
 
         X_train = train_df[FEATURE_COLUMNS].values
@@ -27,10 +30,14 @@ def walk_forward_run(df):
         X_test = test_df[FEATURE_COLUMNS].values
         y_test = test_df["target_direction"].values
 
-        # 訓練三個base模型
-        logreg, scaler = train_logistic(X_train, y_train)
-        xgb_model = train_xgb(X_train, y_train)
-        lgb_model = train_lgb(X_train, y_train)
+        try:
+            logreg, scaler = train_logistic(X_train, y_train)
+            xgb_model = train_xgb(X_train, y_train)
+            lgb_model = train_lgb(X_train, y_train)
+        except ValueError as e:
+            print(f"警告: 窗口 start={start} 訓練失敗 ({e}), 跳過此窗口")
+            start += WALK_FORWARD_STEP
+            continue
 
         proba_train = {
             "logreg": predict_proba_logistic(logreg, scaler, X_train),
@@ -46,7 +53,6 @@ def walk_forward_run(df):
         }
         ensemble_proba_test = stack_predictions(proba_test, meta_model=meta_model)
 
-        # LSTM獨立對齊層 (用同一訓練窗口)
         lstm_model = train_lstm(X_train, y_train, n_features=len(FEATURE_COLUMNS))
         lstm_probas = []
         if lstm_model is not None:
@@ -62,7 +68,6 @@ def walk_forward_run(df):
         else:
             lstm_probas = [None] * len(X_test)
 
-        # GARCH波幅預測 (用train窗口嘅歷史回報)
         garch_vol = fit_garch_forecast(train_df["hsi_ret_1d"])
 
         for i, idx in enumerate(test_df.index):
@@ -81,5 +86,8 @@ def walk_forward_run(df):
             })
 
         start += WALK_FORWARD_STEP
+
+    if len(results) == 0:
+        raise RuntimeError("Walk-forward未產生任何結果, 請檢查數據量或模型訓練是否持續失敗")
 
     return pd.DataFrame(results).set_index("date")
