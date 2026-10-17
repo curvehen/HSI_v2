@@ -39,15 +39,13 @@ def _safe_close_series(ticker, start, label=None):
         return None
 
 
-def fetch_target_data(start):
-    """
-    下載預測目標(TARGET_TICKER)嘅OHLCV。
-    TARGET_TICKER可以係指數(^HSI)或者任何單一股票(例如0700.HK、9988.HK)。
-    """
-    print(f"下載目標數據: {TARGET_TICKER}...")
-    df = _dl(TARGET_TICKER, start)[["Open", "High", "Low", "Close", "Volume"]].copy()
+def fetch_target_data(start, target_ticker):
+    """下載預測目標嘅OHLCV, target_ticker由呼叫方傳入, 唔再寫死讀取config"""
+    print(f"下載目標數據: {target_ticker}...")
+    df = _dl(target_ticker, start)[["Open", "High", "Low", "Close", "Volume"]].copy()
     df.columns = ["target_open", "target_high", "target_low", "target_close", "target_volume"]
     return df
+
 
 
 def fetch_benchmark_feature(start):
@@ -157,16 +155,21 @@ def fetch_usdcnh_proxy(start):
     return s.pct_change().rename("usdcnh_ret_proxy")
 
 
-def fetch_all(start=START_DATE):
+def fetch_all(start=START_DATE, target_ticker=None, benchmark_ticker=None):
     """
-    主入口: 下載TARGET核心數據 + 全部輔助特徵, 全面容錯。
-    即使部分輔助數據源失敗, TARGET核心數據唔會受影響, 代理特徵會以中性值填充。
+    主入口: 下載TARGET核心數據 + 全部輔助特徵。
+    target_ticker/benchmark_ticker若唔傳入, 預設用config.py嘅TARGET_TICKER/BENCHMARK_TICKER,
+    傳入時可覆蓋, 支援批量跑唔同股票。
     """
-    target_df = fetch_target_data(start)
+    tk = target_ticker or TARGET_TICKER
+    bm = benchmark_ticker or BENCHMARK_TICKER
+
+    target_df = fetch_target_data(start, tk)
 
     print("下載大盤基準數據...")
-    benchmark_feature = fetch_benchmark_feature(start)
-    benchmark_close = _safe_close_series(BENCHMARK_TICKER, start, label="benchmark_close_for_tech")
+    bm_close = _safe_close_series(bm, start, label="benchmark")
+    benchmark_feature = bm_close.pct_change().rename("benchmark_ret") if bm_close is not None \
+        else pd.Series(dtype=float, name="benchmark_ret")
 
     print("下載宏觀/外圍市場數據...")
     macro_df = fetch_macro_data(start)
@@ -178,7 +181,7 @@ def fetch_all(start=START_DATE):
     ah_premium_change = fetch_ah_premium_proxy(start)
 
     print("計算恒生科技相對強弱代理指標...")
-    tech_relative_strength = fetch_hstech_relative_proxy(start, benchmark_close)
+    tech_relative_strength = fetch_hstech_relative_proxy(start, bm_close)
 
     print("計算人民幣匯率代理指標...")
     usdcnh_ret = fetch_usdcnh_proxy(start)
@@ -191,9 +194,8 @@ def fetch_all(start=START_DATE):
     df = df.join(tech_relative_strength, how="left")
     df = df.join(usdcnh_ret, how="left")
 
-    # 核心目標欄位必須存在, 其他輔助欄位容許缺失(build_features會fillna處理)
     df.dropna(subset=["target_open", "target_high", "target_low", "target_close"], inplace=True)
     df.ffill(inplace=True)
 
-    print(f"數據下載完成, 目標={TARGET_TICKER}, 共 {len(df)} 個交易日, {len(df.columns)} 個原始欄位")
+    print(f"數據下載完成, 目標={tk}, 共 {len(df)} 個交易日, {len(df.columns)} 個原始欄位")
     return df
