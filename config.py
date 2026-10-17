@@ -63,3 +63,74 @@ CHALLENGER_MIN_TEST_TRADES = 50    # challenger驗證至少要有50筆交易先�
 
 MODEL_DIR = "models_store"
 PRED_DIR = "predictions"
+
+
+# ---- 預測目標設定 (可改做任何單一股票) ----
+TARGET_TICKER = "^HSI"       # 改呢行: 例如 "0700.HK" (騰訊), "9988.HK" (阿里)
+TARGET_LABEL = "HSI"         # 顯示用名稱, 跟住TARGET_TICKER一齊改, 例如 "Tencent"
+
+# 大盤基準指數, 作為預測個股時嘅市場情緒特徵 (預測HSI自己時, 呢個會同TARGET重疊, 屬正常)
+BENCHMARK_TICKER = "^HSI"
+
+HSI_TICKER = "^HSI"  # 保留做BENCHMARK預設, 不要刪除
+
+TOP_WEIGHT_TICKERS = [
+    "0700.HK", "9988.HK", "1299.HK", "0005.HK",
+    "3690.HK", "0939.HK", "1398.HK", "2318.HK"
+]
+
+MACRO_TICKERS = {
+    "nasdaq": "^IXIC",
+    "sp500": "^GSPC",
+    "dow": "^DJI",
+    "dxy": "DX-Y.NYB",
+    "vix": "^VIX",
+    "us10y": "^TNX",
+}
+
+AH_PAIRS = {
+    "601398.SS": "1398.HK",
+    "601939.SS": "0939.HK",
+    "601318.SS": "2318.HK",
+    "600036.SS": "3968.HK",
+    "601288.SS": "1288.HK",
+}
+
+HSTECH_TICKER = "3032.HK"
+USDCNH_TICKER = "USDCNH=X"
+
+START_DATE = "2015-01-01"
+
+TRANSACTION_COST_BPS = 15
+RISK_PER_TRADE = 0.01
+ATR_STOP_MULT = 1.0
+ATR_TARGET_MULT = 1.5
+
+WALK_FORWARD_TRAIN_WINDOW = 500
+WALK_FORWARD_TEST_WINDOW = 60
+WALK_FORWARD_STEP = 60
+
+SIM_START_DATE = "2026-01-01"
+SIM_END_DATE = None
+LSTM_RETRAIN_FREQ_DAYS = 5
+TREE_RETRAIN_FREQ_DAYS = 1
+MIN_TRAIN_HISTORY = 500
+
+PERFORMANCE_LOG_PATH = "predictions/performance_log.csv"
+PREDICTION_HISTORY_PATH = "predictions/prediction_history.csv"
+CHAMPION_PARAMS_PATH = "models_store/champion_params.json"
+CHALLENGER_PARAMS_PATH = "models_store/challenger_params.json"
+
+DRIFT_WINDOW = 30
+DRIFT_MIN_SAMPLES = 20
+DRIFT_ACCURACY_FLOOR = 0.48
+
+HYPEROPT_N_TRIALS = 30
+HYPEROPT_MIN_HISTORY = 600
+PARAM_CHANGE_MAX_PCT = 0.3
+
+CHALLENGER_MIN_IMPROVEMENT = 0.02
+CHALLENGER_MIN_TEST_TRADES = 50
+
+MODEL_DIR = "models_store"
+PRED_DIR = "predictions"
