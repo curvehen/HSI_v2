@@ -1,6 +1,6 @@
 from src.predict_single import predict_single_ticker
 from src.performance_tracker import log_prediction
-from src.llm_analysis import generate_hsi_analysis, generate_stock_analysis
+from src.llm_analysis import generate_hsi_analysis, generate_stock_analysis, generate_watchlist_summary
 from config import WATCHLIST, BENCHMARK_TICKER, START_DATE, ENABLE_LLM_ANALYSIS
 import json
 import os
@@ -30,15 +30,14 @@ def main():
               f"filter_pass={result['confidence_filter_pass']}")
 
         if ENABLE_LLM_ANALYSIS:
-            print("正在生成LLM分析...")
             try:
                 if label == "HSI":
                     result["llm_analysis"] = generate_hsi_analysis(result)
                 else:
                     result["llm_analysis"] = generate_stock_analysis(result)
             except Exception as e:
-                print(f"警告: LLM分析失敗 ({e})")
-                result["llm_analysis"] = f"[LLM分析生成失敗: {e}]"
+                print(f"警告: LLM個股分析失敗 ({e})")
+                result["llm_analysis"] = None
         else:
             result["llm_analysis"] = None
 
@@ -57,14 +56,30 @@ def main():
         all_results.append(result)
         print()
 
-    output = {"run_date": run_date, "results": all_results}
+    # ---- 生成合併Summary表格(用最新一次run嘅全部結果) ----
+    summary_text = None
+    if ENABLE_LLM_ANALYSIS:
+        print("正在生成Watchlist總結表格...")
+        try:
+            summary_text = generate_watchlist_summary(all_results)
+        except Exception as e:
+            print(f"警告: Summary生成失敗 ({e})")
+            summary_text = f"[Summary生成失敗: {e}]"
+
+    output = {
+        "run_date": run_date,
+        "summary": summary_text,
+        "results": all_results,
+    }
 
     os.makedirs("predictions", exist_ok=True)
     with open("predictions/watchlist_prediction.json", "w") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print("=== 批量預測完成 ===")
-    print(f"結果已存至 predictions/watchlist_prediction.json")
+    print("\n=== 批量預測完成 ===\n")
+    print("=== Watchlist Summary ===\n")
+    print(summary_text)
+    print(f"\n完整結果已存至 predictions/watchlist_prediction.json")
 
     failed = [r["target"] for r in all_results if r.get("error")]
     if failed:
