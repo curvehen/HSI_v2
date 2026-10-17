@@ -37,7 +37,8 @@ AH_PAIRS = {
     "0857.HK": "601857.SS",  # 中石油
 }
 
-HSTECH_TICKER = "^HSTECH"
+HSTECH_TICKER = "3032.HK"  # 恒生科技指數ETF, 因yfinance無直接指數代碼^HSTECH
+
 USDCNH_TICKER = "USDCNH=X"
 
 SIM_START_DATE = "2026-01-01"
