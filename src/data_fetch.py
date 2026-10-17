@@ -42,10 +42,14 @@ def fetch_ah_premium_proxy(start):
 
 def fetch_hstech_relative(start):
     """恒生科技 vs 恒指相對強弱, 做南水科網偏好代理"""
-    hstech = _dl(HSTECH_TICKER, start)["Close"]
-    hsi = _dl(HSI_TICKER, start)["Close"]
-    relative = (hstech.pct_change() - hsi.pct_change()).rename("hstech_hsi_relative_ret")
-    return relative
+    try:
+        hstech = _dl(HSTECH_TICKER, start)["Close"]
+        hstech_ret = hstech.pct_change()
+        return hstech_ret.rename("hstech_ret_raw")
+    except Exception as e:
+        print(f"警告: 無法下載{HSTECH_TICKER}數據 ({e}), 將用全零填充代替")
+        return None
+
 
 def fetch_usdcnh(start):
     """人民幣匯率變動, 做跨境資金流情緒代理"""
