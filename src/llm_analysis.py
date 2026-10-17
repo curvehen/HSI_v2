@@ -1,8 +1,7 @@
 import os
 import requests
 from config import CF_MODEL, LLM_MAX_TOKENS, LLM_TEMPERATURE
-from src.llm_prompts import build_hsi_prompt, build_stock_prompt
-
+from src.llm_prompts import build_hsi_prompt, build_stock_prompt, build_watchlist_summary_prompt
 
 def _call_llm(prompt_text):
     """
@@ -55,4 +54,8 @@ def generate_hsi_analysis(payload):
 
 def generate_stock_analysis(payload):
     prompt = build_stock_prompt(payload)
+    return _call_llm(prompt)
+
+def generate_watchlist_summary(results):
+    prompt = build_watchlist_summary_prompt(results)
     return _call_llm(prompt)
