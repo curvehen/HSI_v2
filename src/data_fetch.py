@@ -1,14 +1,14 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-from config import (HSI_TICKER, TOP_WEIGHT_TICKERS, MACRO_TICKERS, START_DATE,
-                     AH_PAIRS, HSTECH_TICKER, USDCNH_TICKER)
+from config import (TARGET_TICKER, BENCHMARK_TICKER, TOP_WEIGHT_TICKERS,
+                     MACRO_TICKERS, START_DATE, AH_PAIRS, HSTECH_TICKER, USDCNH_TICKER)
 
 
 def _dl(ticker, start):
     """
     下載單一ticker嘅歷史數據, 並強制攤平MultiIndex columns。
-    新版yfinance(2025年後)預設所有下載(包括單一ticker)都用MultiIndex columns,
+    新版yfinance預設所有下載(包括單一ticker)都用MultiIndex columns,
     呢個function確保回傳嘅df永遠係單層columns, 避免下游運算出錯。
     """
     df = yf.download(ticker, start=start, progress=False, auto_adjust=True)
@@ -39,15 +39,35 @@ def _safe_close_series(ticker, start, label=None):
         return None
 
 
+def fetch_target_data(start):
+    """
+    下載預測目標(TARGET_TICKER)嘅OHLCV。
+    TARGET_TICKER可以係指數(^HSI)或者任何單一股票(例如0700.HK、9988.HK)。
+    """
+    print(f"下載目標數據: {TARGET_TICKER}...")
+    df = _dl(TARGET_TICKER, start)[["Open", "High", "Low", "Close", "Volume"]].copy()
+    df.columns = ["target_open", "target_high", "target_low", "target_close", "target_volume"]
+    return df
+
+
+def fetch_benchmark_feature(start):
+    """
+    下載大盤基準(通常係HSI)作為輔助特徵, 用嚟判斷目標相對大盤嘅強弱。
+    若TARGET本身就係BENCHMARK(即預測HSI自己), 呢個特徵會同target_ret_1d高度重疊,
+    屬正常現象, 模型會自動學到呢個冗餘, 唔影響運作。
+    """
+    s = _safe_close_series(BENCHMARK_TICKER, start, label="benchmark")
+    if s is None:
+        return pd.Series(dtype=float, name="benchmark_ret")
+    return s.pct_change().rename("benchmark_ret")
+
+
 def fetch_macro_data(start):
     """下載所有宏觀/外圍市場數據, 單一ticker失敗唔影響其他"""
     macro = {}
     for name, tk in MACRO_TICKERS.items():
         s = _safe_close_series(tk, start, label=name)
-        if s is not None:
-            macro[name] = s
-        else:
-            macro[name] = pd.Series(dtype=float)
+        macro[name] = s if s is not None else pd.Series(dtype=float)
 
     macro_df = pd.DataFrame(macro)
     macro_df.columns = [f"{c}_close" for c in macro_df.columns]
@@ -69,9 +89,9 @@ def fetch_topweight_data(start):
             continue
 
     if len(weight_rets) == 0:
-        print("警告: 所有重磅股下載失敗, topweight特徵將以0填充")
-        return pd.Series(dtype=float, name="topweight_avg_ret"), \
-               pd.Series(dtype=float, name="topweight_volume_ratio")
+        print("警告: 所有重磅股下載失敗, topweight特徵將以預設值填充")
+        return (pd.Series(dtype=float, name="topweight_avg_ret"),
+                pd.Series(dtype=float, name="topweight_volume_ratio"))
 
     weight_ret_df = pd.concat(weight_rets, axis=1)
     topweight_avg_ret = weight_ret_df.mean(axis=1).rename("topweight_avg_ret")
@@ -110,14 +130,19 @@ def fetch_ah_premium_proxy(start):
     return ah_avg_premium.pct_change().rename("ah_premium_change_proxy")
 
 
-def fetch_hstech_relative_proxy(start, hsi_close_series):
-    """計算恒生科技 vs 恒指相對強弱代理指標, 失敗時回傳None"""
+def fetch_hstech_relative_proxy(start, benchmark_close_series):
+    """計算恒生科技 vs 大盤基準嘅相對強弱代理指標"""
     try:
         hstech = _dl(HSTECH_TICKER, start)["Close"]
         hstech_ret = hstech.pct_change()
-        hsi_ret_tmp = hsi_close_series.pct_change()
-        combined = pd.DataFrame({"hstech": hstech_ret, "hsi": hsi_ret_tmp}).dropna()
-        rel = (combined["hstech"] - combined["hsi"]).rename("tech_relative_strength_proxy")
+
+        if benchmark_close_series is None:
+            print("警告: 基準數據不可用, tech_relative_strength_proxy將以0填充")
+            return pd.Series(dtype=float, name="tech_relative_strength_proxy")
+
+        bm_ret = benchmark_close_series.pct_change()
+        combined = pd.DataFrame({"hstech": hstech_ret, "bm": bm_ret}).dropna()
+        rel = (combined["hstech"] - combined["bm"]).rename("tech_relative_strength_proxy")
         return rel
     except Exception as e:
         print(f"警告: 無法下載 {HSTECH_TICKER} 數據 ({e}), tech_relative_strength_proxy將以0填充")
@@ -134,12 +159,14 @@ def fetch_usdcnh_proxy(start):
 
 def fetch_all(start=START_DATE):
     """
-    主入口: 下載HSI核心數據 + 所有特徵來源, 全面容錯。
-    即使部分輔助數據源失敗, HSI核心數據唔會受影響, 代理特徵會以中性值填充。
+    主入口: 下載TARGET核心數據 + 全部輔助特徵, 全面容錯。
+    即使部分輔助數據源失敗, TARGET核心數據唔會受影響, 代理特徵會以中性值填充。
     """
-    print("下載HSI核心數據...")
-    hsi_raw = _dl(HSI_TICKER, start)[["Open", "High", "Low", "Close", "Volume"]].copy()
-    hsi_raw.columns = ["hsi_open", "hsi_high", "hsi_low", "hsi_close", "hsi_volume"]
+    target_df = fetch_target_data(start)
+
+    print("下載大盤基準數據...")
+    benchmark_feature = fetch_benchmark_feature(start)
+    benchmark_close = _safe_close_series(BENCHMARK_TICKER, start, label="benchmark_close_for_tech")
 
     print("下載宏觀/外圍市場數據...")
     macro_df = fetch_macro_data(start)
@@ -151,21 +178,22 @@ def fetch_all(start=START_DATE):
     ah_premium_change = fetch_ah_premium_proxy(start)
 
     print("計算恒生科技相對強弱代理指標...")
-    tech_relative_strength = fetch_hstech_relative_proxy(start, hsi_raw["hsi_close"])
+    tech_relative_strength = fetch_hstech_relative_proxy(start, benchmark_close)
 
     print("計算人民幣匯率代理指標...")
     usdcnh_ret = fetch_usdcnh_proxy(start)
 
-    df = hsi_raw.join(macro_df, how="left")
+    df = target_df.join(benchmark_feature, how="left")
+    df = df.join(macro_df, how="left")
     df = df.join(topweight_avg_ret, how="left")
     df = df.join(topweight_volume_ratio, how="left")
     df = df.join(ah_premium_change, how="left")
     df = df.join(tech_relative_strength, how="left")
     df = df.join(usdcnh_ret, how="left")
 
-    # 核心HSI欄位必須存在, 其他輔助欄位容許缺失(後面build_features會fillna)
-    df.dropna(subset=["hsi_open", "hsi_high", "hsi_low", "hsi_close"], inplace=True)
+    # 核心目標欄位必須存在, 其他輔助欄位容許缺失(build_features會fillna處理)
+    df.dropna(subset=["target_open", "target_high", "target_low", "target_close"], inplace=True)
     df.ffill(inplace=True)
 
-    print(f"數據下載完成, 共 {len(df)} 個交易日, {len(df.columns)} 個原始欄位")
+    print(f"數據下載完成, 目標={TARGET_TICKER}, 共 {len(df)} 個交易日, {len(df.columns)} 個原始欄位")
     return df
