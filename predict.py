@@ -6,6 +6,7 @@ from src.ensemble import stack_predictions, agreement_score
 from src.garch_model import fit_garch_forecast
 from src.risk import predict_next_ohlc, compute_entry_exit
 from src.performance_tracker import log_prediction
+from config import TARGET_TICKER, TARGET_LABEL
 import json
 import os
 import sys
@@ -21,7 +22,7 @@ def main():
 
     df = build_features(raw)
     if len(df) < 100:
-        print(f"錯誤: 可用數據不足({len(df)}日), 無法訓練模型")
+        print(f"錯誤: 可用數據不足({len(df)}日)")
         sys.exit(1)
 
     X = df[FEATURE_COLUMNS].values
@@ -57,12 +58,12 @@ def main():
         lstm_proba = predict_lstm(lstm_model, seq)
 
     agree = agreement_score(ensemble_proba, lstm_proba)
-    garch_vol = fit_garch_forecast(df["hsi_ret_1d"])
+    garch_vol = fit_garch_forecast(df["target_ret_1d"])
 
-    last_close = float(df["hsi_close"].iloc[-1])
+    last_close = float(df["target_close"].iloc[-1])
     atr = float(df["atr14"].iloc[-1])
     overnight_gap_est = df["overnight_gap"].rolling(10).mean().iloc[-1]
-    if overnight_gap_est != overnight_gap_est:  # NaN check
+    if overnight_gap_est != overnight_gap_est:
         overnight_gap_est = 0.0
 
     ohlc_pred = predict_next_ohlc(last_close, overnight_gap_est, atr, ensemble_proba)
@@ -70,21 +71,22 @@ def main():
     direction = 1 if ensemble_proba > 0.5 else -1
     entry, stop, target = compute_entry_exit(ohlc_pred["expected_open"], atr, 1 if direction == 1 else 0)
 
-    # ---- confidence filter: 同時考慮ensemble信心度 同 LSTM對齊結果 ----
     strong_confidence = ensemble_proba > 0.55 or ensemble_proba < 0.45
     confidence_filter_pass = bool(strong_confidence and agree != "disagree")
 
     output = {
+        "target": TARGET_LABEL,
+        "target_ticker": TARGET_TICKER,
         "run_date": datetime.now().strftime("%Y-%m-%d"),
-        "last_known_close": round(last_close, 1),
+        "last_known_close": round(last_close, 2),
         "ensemble_proba_up": round(ensemble_proba, 4),
         "lstm_proba_up": round(lstm_proba, 4) if lstm_proba is not None else None,
         "agreement": agree,
         "garch_daily_vol_forecast": round(float(garch_vol), 5),
         "predicted_ohlc": ohlc_pred,
-        "suggested_entry": round(float(entry), 1),
-        "suggested_stop_loss": round(float(stop), 1),
-        "suggested_take_profit": round(float(target), 1),
+        "suggested_entry": round(float(entry), 2),
+        "suggested_stop_loss": round(float(stop), 2),
+        "suggested_take_profit": round(float(target), 2),
         "confidence_filter_pass": confidence_filter_pass,
     }
 
@@ -94,9 +96,9 @@ def main():
     with open("predictions/latest_prediction.json", "w") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    # ---- 將預測攤平並記錄落prediction_history.csv, 供日後自我學習模組評估 ----
     log_record = {
         "run_date": output["run_date"],
+        "target": output["target"],
         "ensemble_proba_up": output["ensemble_proba_up"],
         "agreement": output["agreement"],
         "predicted_open": output["predicted_ohlc"]["expected_open"],
@@ -106,7 +108,7 @@ def main():
     }
     log_prediction(log_record)
 
-    print("\n預測已存至 predictions/latest_prediction.json 同 predictions/prediction_history.csv")
+    print(f"\n預測已存至 predictions/latest_prediction.json (目標: {TARGET_LABEL})")
 
 
 if __name__ == "__main__":
