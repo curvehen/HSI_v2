@@ -1,0 +1,100 @@
+{
+  "run_date": "2026-10-17",
+  "results": [
+    {
+      "target": "HSI",
+      "ticker": "^HSI",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "騰訊控股",
+      "ticker": "0700.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "阿里巴巴",
+      "ticker": "9988.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "中國移動",
+      "ticker": "0941.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "友邦保險",
+      "ticker": "1299.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "香港交易所",
+      "ticker": "0388.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "美團",
+      "ticker": "3690.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "滙豐控股",
+      "ticker": "0005.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "小米集團",
+      "ticker": "1810.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "中國平安",
+      "ticker": "2318.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "新鴻基地產",
+      "ticker": "0016.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "銀河娛樂",
+      "ticker": "0027.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "中國海洋石油",
+      "ticker": "0883.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "工商銀行",
+      "ticker": "1398.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "中國銀行",
+      "ticker": "3988.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "中電控股",
+      "ticker": "0002.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "長和",
+      "ticker": "0001.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": " 比亞迪股份",
+      "ticker": "1211.HK",
+      "error": "'hsi_open'"
+    },
+    {
+      "target": "信義光能",
+      "ticker": "0968.HK",
+      "error": "'hsi_open'"
+    }
+  ]
+}
