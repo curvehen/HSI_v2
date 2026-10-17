@@ -5,6 +5,7 @@ from src.lstm_model import train_lstm, predict_lstm, SEQ_LEN
 from src.ensemble import stack_predictions, agreement_score
 from src.garch_model import fit_garch_forecast
 from src.risk import predict_next_ohlc, compute_entry_exit
+from src.performance_tracker import log_prediction
 import json
 import os
 import sys
@@ -69,6 +70,10 @@ def main():
     direction = 1 if ensemble_proba > 0.5 else -1
     entry, stop, target = compute_entry_exit(ohlc_pred["expected_open"], atr, 1 if direction == 1 else 0)
 
+    # ---- confidence filter: 同時考慮ensemble信心度 同 LSTM對齊結果 ----
+    strong_confidence = ensemble_proba > 0.55 or ensemble_proba < 0.45
+    confidence_filter_pass = bool(strong_confidence and agree != "disagree")
+
     output = {
         "run_date": datetime.now().strftime("%Y-%m-%d"),
         "last_known_close": round(last_close, 1),
@@ -80,22 +85,28 @@ def main():
         "suggested_entry": round(float(entry), 1),
         "suggested_stop_loss": round(float(stop), 1),
         "suggested_take_profit": round(float(target), 1),
-        "strong_confidence = ensemble_proba > 0.55 or ensemble_proba < 0.45
-        confidence_filter_pass = bool(strong_confidence and agree != "disagree")
+        "confidence_filter_pass": confidence_filter_pass,
     }
 
-        print(json.dumps(output, indent=2, ensure_ascii=False))
+    print(json.dumps(output, indent=2, ensure_ascii=False))
 
     os.makedirs("predictions", exist_ok=True)
     with open("predictions/latest_prediction.json", "w") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    from src.performance_tracker import log_prediction
-    log_prediction(output)
+    # ---- 將預測攤平並記錄落prediction_history.csv, 供日後自我學習模組評估 ----
+    log_record = {
+        "run_date": output["run_date"],
+        "ensemble_proba_up": output["ensemble_proba_up"],
+        "agreement": output["agreement"],
+        "predicted_open": output["predicted_ohlc"]["expected_open"],
+        "predicted_high": output["predicted_ohlc"]["expected_high"],
+        "predicted_low": output["predicted_ohlc"]["expected_low"],
+        "predicted_close": output["predicted_ohlc"]["expected_close"],
+    }
+    log_prediction(log_record)
 
-    print("\n預測已存至 predictions/latest_prediction.json 同 prediction_history.csv")
-
-
+    print("\n預測已存至 predictions/latest_prediction.json 同 predictions/prediction_history.csv")
 
 
 if __name__ == "__main__":
