@@ -1,0 +1,28 @@
+name: Weekly Self-Learning Cycle
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: '0 3 * * 6'
+  workflow_dispatch:
+
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: mkdir -p predictions models_store
+      - run: python learning_cycle.py
+      - name: Commit results
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add predictions/ models_store/
+          git commit -m "Weekly self-learning cycle $(date +%F)" || echo "No changes"
+          git push
