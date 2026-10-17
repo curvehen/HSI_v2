@@ -16,7 +16,7 @@ def run_daily_simulation(df):
     sim_start_ts = pd.Timestamp(SIM_START_DATE)
     valid_dates = df.index[df.index >= sim_start_ts]
     if len(valid_dates) == 0:
-        raise ValueError(f"數據中冇任何日期 >= {SIM_START_DATE}, 請檢查數據範圍")
+        raise ValueError(f"數據中冇任何日期 >= {SIM_START_DATE}")
     sim_start_idx = df.index.get_loc(valid_dates[0])
 
     if SIM_END_DATE is None:
@@ -30,8 +30,7 @@ def run_daily_simulation(df):
 
     if sim_start_idx < MIN_TRAIN_HISTORY:
         raise ValueError(
-            f"訓練歷史不足{MIN_TRAIN_HISTORY}日(現有{sim_start_idx}日), "
-            f"無法喺{SIM_START_DATE}開始模擬, 請調早SIM_START_DATE或擴大數據下載範圍"
+            f"訓練歷史不足{MIN_TRAIN_HISTORY}日(現有{sim_start_idx}日), 無法開始模擬"
         )
 
     results = []
@@ -84,9 +83,9 @@ def run_daily_simulation(df):
             lstm_proba = predict_lstm(lstm_model, seq)
 
         agree = agreement_score(ensemble_proba, lstm_proba)
-        garch_vol = fit_garch_forecast(train_slice["hsi_ret_1d"])
+        garch_vol = fit_garch_forecast(train_slice["target_ret_1d"])
 
-        last_close = train_slice["hsi_close"].iloc[-1]
+        last_close = train_slice["target_close"].iloc[-1]
         atr = train_slice["atr14"].iloc[-1]
         overnight_gap_est = train_slice["overnight_gap"].rolling(10).mean().iloc[-1]
         ohlc_pred = predict_next_ohlc(last_close, overnight_gap_est, atr, ensemble_proba)
@@ -96,7 +95,7 @@ def run_daily_simulation(df):
             ohlc_pred["expected_open"], atr, 1 if direction == 1 else 0
         )
 
-        actual_ret = current_row["hsi_ret_1d"]
+        actual_ret = current_row["target_ret_1d"]
         correct_direction = int((ensemble_proba > 0.5) == (actual_ret > 0))
 
         results.append({
@@ -112,10 +111,10 @@ def run_daily_simulation(df):
             "suggested_entry": entry,
             "suggested_stop": stop,
             "suggested_target": target,
-            "actual_open": current_row["hsi_open"],
-            "actual_high": current_row["hsi_high"],
-            "actual_low": current_row["hsi_low"],
-            "actual_close": current_row["hsi_close"],
+            "actual_open": current_row["target_open"],
+            "actual_high": current_row["target_high"],
+            "actual_low": current_row["target_low"],
+            "actual_close": current_row["target_close"],
             "actual_ret": actual_ret,
             "correct_direction": correct_direction,
         })
