@@ -2,7 +2,7 @@ name: Weekly Walk-Forward Retrain & Validation
 
 on:
   schedule:
-    - cron: '0 2 * * 6'  # 每週六
+    - cron: '0 2 * * 6'
   workflow_dispatch:
 
 jobs:
