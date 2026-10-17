@@ -7,7 +7,10 @@ def _dl(ticker, start):
     df = yf.download(ticker, start=start, progress=False, auto_adjust=True)
     if df.empty:
         raise ValueError(f"No data returned for {ticker}")
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
     return df
+
 
 def fetch_ah_premium_proxy(start):
     """
