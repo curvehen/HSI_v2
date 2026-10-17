@@ -80,7 +80,8 @@ def main():
         "suggested_entry": round(float(entry), 1),
         "suggested_stop_loss": round(float(stop), 1),
         "suggested_take_profit": round(float(target), 1),
-        "confidence_filter_pass": bool(ensemble_proba > 0.55 or ensemble_proba < 0.45),
+        "strong_confidence = ensemble_proba > 0.55 or ensemble_proba < 0.45
+        confidence_filter_pass = bool(strong_confidence and agree != "disagree")
     }
 
     print(json.dumps(output, indent=2, ensure_ascii=False))
