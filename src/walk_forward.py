@@ -16,8 +16,7 @@ def walk_forward_run(df):
 
     if n < WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW:
         raise ValueError(
-            f"數據量不足({n}日), 無法進行walk-forward (需要最少"
-            f"{WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW}日)"
+            f"數據量不足({n}日), 需要最少{WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW}日"
         )
 
     while start + WALK_FORWARD_TRAIN_WINDOW + WALK_FORWARD_TEST_WINDOW <= n:
@@ -35,7 +34,7 @@ def walk_forward_run(df):
             xgb_model = train_xgb(X_train, y_train)
             lgb_model = train_lgb(X_train, y_train)
         except ValueError as e:
-            print(f"警告: 窗口 start={start} 訓練失敗 ({e}), 跳過此窗口")
+            print(f"警告: 窗口 start={start} 訓練失敗 ({e}), 跳過")
             start += WALK_FORWARD_STEP
             continue
 
@@ -68,7 +67,7 @@ def walk_forward_run(df):
         else:
             lstm_probas = [None] * len(X_test)
 
-        garch_vol = fit_garch_forecast(train_df["hsi_ret_1d"])
+        garch_vol = fit_garch_forecast(train_df["target_ret_1d"])
 
         for i, idx in enumerate(test_df.index):
             agree = agreement_score(ensemble_proba_test[i], lstm_probas[i])
@@ -80,7 +79,7 @@ def walk_forward_run(df):
                 "garch_vol_forecast": garch_vol,
                 "target_direction": y_test[i],
                 "target_ret": test_df["target_ret"].iloc[i],
-                "hsi_close": test_df["hsi_close"].iloc[i],
+                "target_close": test_df["target_close"].iloc[i],
                 "atr14": test_df["atr14"].iloc[i],
                 "overnight_gap": test_df["overnight_gap"].iloc[i],
             })
@@ -88,6 +87,6 @@ def walk_forward_run(df):
         start += WALK_FORWARD_STEP
 
     if len(results) == 0:
-        raise RuntimeError("Walk-forward未產生任何結果, 請檢查數據量或模型訓練是否持續失敗")
+        raise RuntimeError("Walk-forward未產生任何結果")
 
     return pd.DataFrame(results).set_index("date")
