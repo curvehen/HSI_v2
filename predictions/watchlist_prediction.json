@@ -1,19 +1,20 @@
 {
   "run_date": "2026-10-17",
+  "summary": null,
   "results": [
     {
       "target": "HSI",
       "ticker": "^HSI",
       "last_known_close": 24062.72,
-      "ensemble_proba_up": 0.8212,
-      "lstm_proba_up": 0.4844,
+      "ensemble_proba_up": 0.8159,
+      "lstm_proba_up": 0.4709,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.01079,
       "predicted_ohlc": {
         "expected_open": 24017.6,
-        "expected_high": 24309.3,
-        "expected_low": 23956.7,
-        "expected_close": 24086.0
+        "expected_high": 24307.4,
+        "expected_low": 23955.9,
+        "expected_close": 24084.9
       },
       "suggested_entry": 24017.6,
       "suggested_stop_loss": 23662.39,
@@ -42,22 +43,24 @@
         "布林帶寬度_bb_width": 0.0585,
         "成交量異動_vol_ratio": 1.522,
         "ATR14": 355.21,
-        "ATR百分比_atr_pct": 0.01476
+        "ATR百分比_atr_pct": 0.01476,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n【市場氛圍摘要】  \n恒指預期開盤微低，技術面顯示短期偏強，但權重股下跌及成交量放大反映分歧。主要支持訊號為美股隔夜道指升1.08%（外圍）及布林帶中軌附近（技術）。風險提示：權重股動能不足可能引發反轉。  \n\n美股隔夜: 道指升1.08%（數據來源：JSON）  \n南向資金: 數據未提供  \n人民幣匯率: 不變（USDCNH變動0%）  \n權重股動態: 權重股平均跌0.65%（數據來源：JSON）  \n重要消息催化: 未有相關數據  \n恒指期貨隱含開盤方向: 數據未提供  \n\n明日偏向: 上升  \n概率: 上升81.6% / 下跌18.4% / 震盪0%  \n信心: 高  \n\n核心原因:  \n1. 美股隔夜道指升1.08%（外圍）  \n2. 布林帶位置0.2364（技術）  \n3. 成交量異動1.522倍（資金）  \n\n關鍵價位:  \n支持1 / 支持2: 23955.9 / 23662.39  \n阻力1 / 阻力2: 24307.4 / 24550.41  \nATR(14): 355.21  \n期指高/低水啟示: 數據未提供  \n\n交易情境:  \nA. 造好情境:  \n入場條件: 開盤站穩23955.9  \n入場位: 24017.6  \n止蝕位: 23662.39  \n目標位: 24550.41  \n風險回報比: 1:3.5  \n\nB. 造淡情境:  \n入場條件: 跌穿23955.9  \n入場位: 23955.9  \n止蝕位: 24017.6  \n目標位: 23662.39  \n風險回報比: 1:1.2  \n\nC. 觀望情境: 無明確訊號時觀望  \n"
     },
     {
       "target": "騰訊控股",
       "ticker": "0700.HK",
       "last_known_close": 417.8,
-      "ensemble_proba_up": 0.023,
-      "lstm_proba_up": 0.4804,
+      "ensemble_proba_up": 0.0283,
+      "lstm_proba_up": 0.4826,
       "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.0186,
       "predicted_ohlc": {
         "expected_open": 416.1,
         "expected_high": 417.1,
-        "expected_low": 406.9,
+        "expected_low": 407.0,
         "expected_close": 413.4
       },
       "suggested_entry": 416.1,
@@ -87,28 +90,30 @@
         "布林帶寬度_bb_width": 0.0886,
         "成交量異動_vol_ratio": 1.02,
         "ATR14": 9.39,
-        "ATR百分比_atr_pct": 0.02246
+        "ATR百分比_atr_pct": 0.02246,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 低開後反彈遇阻，整體偏弱\n\n2. 上漲 / 震盪 / 下跌機率: 下跌機率65%，震盪25%，上漲10%\n\n3. 關鍵支撐與壓力位: 支援位407.0（預測低點），壓力位417.1（預測高點）\n\n4. 看多成立條件: RSI14超賣反彈、MACD柱狀圖收窄、開盤價站上416.1上方\n\n5. 看空成立條件: 突破407.0支撐、MACD持續走低、成交量異動大於1.5倍\n\n6. 開盤後最重要的3個觀察訊號: 1) 開盤後1小時內是否站上416.1 2) RSI是否突破38 3) 成交量是否放大至2倍以上\n\n7. 若做隔日短線, 較合理的交易思路: 低開後在407.0附近輕倉做多，若反彈遇417.1壓力受阻立即止損，或在416.1下方"
     },
     {
       "target": "阿里巴巴",
       "ticker": "9988.HK",
       "last_known_close": 106.4,
-      "ensemble_proba_up": 0.4595,
-      "lstm_proba_up": 0.4558,
+      "ensemble_proba_up": 0.3055,
+      "lstm_proba_up": 0.4923,
       "agreement": "agree_weak",
       "garch_daily_vol_forecast": 0.0259,
       "predicted_ohlc": {
         "expected_open": 106.4,
-        "expected_high": 107.4,
-        "expected_low": 104.4,
-        "expected_close": 106.3
+        "expected_high": 107.2,
+        "expected_low": 103.8,
+        "expected_close": 105.9
       },
       "suggested_entry": 106.4,
       "suggested_stop_loss": 110.09,
       "suggested_take_profit": 100.86,
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "context_data": {
         "美股隔夜_nasdaq_ret": 0.00076,
         "美股隔夜_sp500_ret": 0.00325,
@@ -132,16 +137,18 @@
         "布林帶寬度_bb_width": 0.1009,
         "成交量異動_vol_ratio": 1.338,
         "ATR14": 3.69,
-        "ATR百分比_atr_pct": 0.03471
+        "ATR百分比_atr_pct": 0.03471,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏弱，短期有技術性調整壓力\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(49.23%) > 下跌(30.55%) > 上漲(20.22%)\n\n3. 關鍵支撐與壓力位: 支撐103.8(預測低點)/105.9(預測收盤)，壓力107.2(預測高點)\n\n4. 看多成立條件: 美股隔夜大漲(道瓊斯+1.077%)、成交量異動(1.338)、布林帶位置0.3644\n\n5. 看空成立條件: RSI14(43.18)處於中性區間、MACD柱狀圖(0.411)收窄、權重股平均回報-0.647%\n\n6. 開盤後最重要的3個觀察訊號: 1) 106.4開盤價是否失守 2) 107.2壓力位突破動能 3) 成交量是否持續放大\n\n7. 若做隔日短線, 較合理的交易思路: 等待盤中測試103.8支撐後反彈，遇107.2壓力短線賣出，嚴格控制風險\n\n8. 本次判斷最不確定的因素: 南向資金數據未提供、恒指期貨隱含開盤未公布、重要消息催化未披露"
     },
     {
       "target": "中國移動",
       "ticker": "0941.HK",
       "last_known_close": 81.0,
-      "ensemble_proba_up": 0.3766,
-      "lstm_proba_up": 0.4945,
+      "ensemble_proba_up": 0.3696,
+      "lstm_proba_up": 0.4966,
       "agreement": "agree_weak",
       "garch_daily_vol_forecast": 0.00644,
       "predicted_ohlc": {
@@ -177,16 +184,18 @@
         "布林帶寬度_bb_width": 0.0359,
         "成交量異動_vol_ratio": 1.407,
         "ATR14": 0.74,
-        "ATR百分比_atr_pct": 0.00917
+        "ATR百分比_atr_pct": 0.00917,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏弱\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(55%) / 下跌(30%) / 上漲(15%)\n\n3. 關鍵支撐與壓力位: 支撐80.6 / 壓力81.2\n\n4. 看多成立條件: 收盤突破81.2且RSI回調至60以下\n\n5. 看空成立條件: 收盤跌破80.6且成交量持續放大\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否守穩81.0 ② 10分鐘內成交量是否持續放大 ③ RSI是否突破75\n\n7. 若做隔日短線, 較合理的交易思路: 等待80.6-81.2區間內高拋低吸，嚴格設止損於81.74\n\n8. 本次判斷最不確定的因素: 權重股動態(topweight_avg_ret -0.65%)與南向資金流向的互動影響"
     },
     {
       "target": "友邦保險",
       "ticker": "1299.HK",
       "last_known_close": 72.45,
-      "ensemble_proba_up": 0.885,
-      "lstm_proba_up": 0.4566,
+      "ensemble_proba_up": 0.906,
+      "lstm_proba_up": 0.455,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.01753,
       "predicted_ohlc": {
@@ -222,21 +231,23 @@
         "布林帶寬度_bb_width": 0.1607,
         "成交量異動_vol_ratio": 0.965,
         "ATR14": 2.12,
-        "ATR百分比_atr_pct": 0.02933
+        "ATR百分比_atr_pct": 0.02933,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 短線偏弱震盪，需觀察開盤後量價配合\n\n2. 上漲 / 震盪 / 下跌機率: 震盪機率60%、下跌30%、上漲10%（基於模型分歧與信心指標）\n\n3. 關鍵支撐與壓力位: 支援71.9 / 70.08（止損位）；壓力74.1 / 72.7（預測收市）\n\n4. 看多成立條件: RSI14（36.55）處於超賣區、MACD柱狀圖（+0.1406）顯示短線動能、布林帶位置（0.45）偏中性偏多\n\n5. 看空成立條件: MACD（-0.92）與信號線（-1.06）呈死叉、權重股動態負回報（-0.65%）、RSI未突破中性區（50）\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否站穩72.2上方 ② 成交量是否放大至1.5倍以上 ③ RSI是否突破40關鍵位\n\n7. 若做隔日短線, 較合理的交易思路: 輕倉反彈做多（71.9-72.2區間），嚴守70.08止損；若破72.7反手做空\n\n8. 本次判斷最不確定的因素: 模型預測意見分歧（ensemble與LSTM強烈反向）、南向資金數據未提供、重要消息催化未披露"
     },
     {
       "target": "香港交易所",
       "ticker": "0388.HK",
       "last_known_close": 371.4,
-      "ensemble_proba_up": 0.9393,
-      "lstm_proba_up": 0.4939,
+      "ensemble_proba_up": 0.9286,
+      "lstm_proba_up": 0.4713,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.01378,
       "predicted_ohlc": {
         "expected_open": 371.1,
-        "expected_high": 376.8,
+        "expected_high": 376.7,
         "expected_low": 370.4,
         "expected_close": 372.7
       },
@@ -267,17 +278,19 @@
         "布林帶寬度_bb_width": 0.0822,
         "成交量異動_vol_ratio": 0.91,
         "ATR14": 5.97,
-        "ATR百分比_atr_pct": 0.01608
+        "ATR百分比_atr_pct": 0.01608,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 短線可能震盪偏弱，需觀察開盤後動能\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(45%) / 下跌(35%) / 上漲(20%)\n\n3. 關鍵支撐與壓力位: 支援370.4 / 阻力376.7\n\n4. 看多成立條件: RSI14超賣(26.5)、美股隔夜上漲、美元指數下跌\n\n5. 看空成立條件: MACD負值(-6.341)、權重股平均回吐(-0.647%)、布林帶收窄\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否守穩371.1 ② 10分鐘內是否突破376.7 ③ 成交量是否放大至1.5倍以上\n\n7. 若做隔日短線, 較合理的交易思路: 低開可嘗試370.4附近分批做多，目標376.7；若失守371.1則反手做空\n\n8. 本次判斷最不確定的因素: 權重股成交量異動(1.509)與南向資金動向(未提供)的雙重影響"
     },
     {
       "target": "美團",
       "ticker": "3690.HK",
       "last_known_close": 75.45,
       "ensemble_proba_up": 0.5993,
-      "lstm_proba_up": 0.409,
-      "agreement": "disagree",
+      "lstm_proba_up": 0.513,
+      "agreement": "agree_weak",
       "garch_daily_vol_forecast": 0.02939,
       "predicted_ohlc": {
         "expected_open": 75.2,
@@ -288,7 +301,7 @@
       "suggested_entry": 75.2,
       "suggested_stop_loss": 72.83,
       "suggested_take_profit": 78.76,
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "context_data": {
         "美股隔夜_nasdaq_ret": 0.00076,
         "美股隔夜_sp500_ret": 0.00325,
@@ -312,17 +325,19 @@
         "布林帶寬度_bb_width": 0.1029,
         "成交量異動_vol_ratio": 1.422,
         "ATR14": 2.37,
-        "ATR百分比_atr_pct": 0.03143
+        "ATR百分比_atr_pct": 0.03143,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏上，需關注開盤後量能與壓力位突破\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(40%)、上漲(35%)、下跌(25%)\n\n3. 關鍵支撐與壓力位: 支援74.6 / 阻力76.6\n\n4. 看多成立條件: \n   - 開盤價有效站穩75.2\n   - 成交量異動1.422持續放大\n   - 布林帶位置0.9414顯示強勢\n\n5. 看空成立條件: \n   - 突破76.6後反轉下跌\n   - RSI14跌破55\n   - 南向資金數據異動(數據未提供)\n\n6. 開盤後最重要的3個觀察訊號: \n   ① 開盤15分鐘成交額是否超過去5日均值\n   ② 是否站上75.7關鍵分水嶺\n   ③ MACD柱狀圖是否持續放大\n\n7. 若做隔日短線, 較合理的交易思路: \n   - 75.2附近輕倉做多，目標76.6\n   - 若失守74.6反向布局\n   - 嚴守72.83止損\n\n8. 本次判斷最不確定的因素: 南向資金數據異動(數據未提供)與權重股動態TopWeight平均回報-0.647%的持續性"
     },
     {
       "target": "滙豐控股",
       "ticker": "0005.HK",
       "last_known_close": 147.9,
-      "ensemble_proba_up": 0.9484,
-      "lstm_proba_up": 0.4982,
-      "agreement": "disagree",
+      "ensemble_proba_up": 0.9516,
+      "lstm_proba_up": 0.5151,
+      "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.02017,
       "predicted_ohlc": {
         "expected_open": 146.9,
@@ -333,7 +348,7 @@
       "suggested_entry": 146.9,
       "suggested_stop_loss": 143.21,
       "suggested_take_profit": 152.44,
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "context_data": {
         "美股隔夜_nasdaq_ret": 0.00076,
         "美股隔夜_sp500_ret": 0.00325,
@@ -357,16 +372,18 @@
         "布林帶寬度_bb_width": 0.1548,
         "成交量異動_vol_ratio": 0.865,
         "ATR14": 3.69,
-        "ATR百分比_atr_pct": 0.02497
+        "ATR百分比_atr_pct": 0.02497,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 短線技術面偏多，但需觀察開盤後量能配合\n\n2. 上漲 / 震盪 / 下跌機率: 上漲機率75% / 震盪20% / 下跌5%\n\n3. 關鍵支撐與壓力位: 支援146.4 / 阻力150.4\n\n4. 看多成立條件: RSI14處於超賣區(37.5)、模型 Ensemble 上漲機率95%、預測開盤價146.9具支撐意義\n\n5. 看空成立條件: MACD柱狀圖負值擴大(-0.4842)、權重股平均回報-0.647%、布林帶位置處於中軌偏下(0.2508)\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否守穩146.4 ② 150.4壓力位突破情況 ③ 成交量是否放大至1.5倍以上\n\n7. 若做隔日短線, 較合理的交易思路: 以146.9為入場點做多，目標150.4，防守146.4下方\n\n8. 本次判斷最不確定的因素: 權重股動態平均回報-0.647%與南向資金數據未提供對整體盤面的影響"
     },
     {
       "target": "小米集團",
       "ticker": "1810.HK",
       "last_known_close": 27.08,
       "ensemble_proba_up": 0.0429,
-      "lstm_proba_up": 0.4269,
+      "lstm_proba_up": 0.4551,
       "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.03401,
       "predicted_ohlc": {
@@ -402,17 +419,19 @@
         "布林帶寬度_bb_width": 0.1854,
         "成交量異動_vol_ratio": 1.968,
         "ATR14": 1.16,
-        "ATR百分比_atr_pct": 0.04268
+        "ATR百分比_atr_pct": 0.04268,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏弱\n\n2. 上漲 / 震盪 / 下跌機率: 下跌機率65% 震盪25% 上漲10%（基於模型概率與技術面推斷）\n\n3. 關鍵支撐與壓力位: 支援25.9 / 阻力27.1\n\n4. 看多成立條件: RSI14＞50、布林帶位置＞0.8、成交量異動＞1.5\n\n5. 看空成立條件: MACD柱狀圖收窄、RSI14＜55、恒生科技相對強弱＜-0.01\n\n6. 開盤後最重要的3個觀察訊號: 1. 开盘价是否突破27.1 2. 10分鐘成交量是否持續放大 3. RSI是否跌破50\n\n7. 若做隔日短線, 較合理的交易思路: 等待盤中跌破26.6後短空，目標25.27，防守27.1\n\n8. 本次判斷最不確定的因素: 南向資金動向與重要消息催化（數據未提供）"
     },
     {
       "target": "中國平安",
       "ticker": "2318.HK",
       "last_known_close": 50.4,
       "ensemble_proba_up": 0.0817,
-      "lstm_proba_up": 0.5361,
-      "agreement": "disagree",
+      "lstm_proba_up": 0.45,
+      "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.01171,
       "predicted_ohlc": {
         "expected_open": 50.4,
@@ -423,7 +442,7 @@
       "suggested_entry": 50.4,
       "suggested_stop_loss": 51.25,
       "suggested_take_profit": 49.13,
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "context_data": {
         "美股隔夜_nasdaq_ret": 0.00076,
         "美股隔夜_sp500_ret": 0.00325,
@@ -447,17 +466,19 @@
         "布林帶寬度_bb_width": 0.0771,
         "成交量異動_vol_ratio": 1.574,
         "ATR14": 0.85,
-        "ATR百分比_atr_pct": 0.01685
+        "ATR百分比_atr_pct": 0.01685,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": null
     },
     {
       "target": "新鴻基地產",
       "ticker": "0016.HK",
       "last_known_close": 106.3,
-      "ensemble_proba_up": 0.9738,
-      "lstm_proba_up": 0.509,
-      "agreement": "agree_strong",
+      "ensemble_proba_up": 0.9744,
+      "lstm_proba_up": 0.4714,
+      "agreement": "disagree",
       "garch_daily_vol_forecast": 0.01537,
       "predicted_ohlc": {
         "expected_open": 106.2,
@@ -468,7 +489,7 @@
       "suggested_entry": 106.2,
       "suggested_stop_loss": 103.66,
       "suggested_take_profit": 110.0,
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "context_data": {
         "美股隔夜_nasdaq_ret": 0.00076,
         "美股隔夜_sp500_ret": 0.00325,
@@ -492,17 +513,19 @@
         "布林帶寬度_bb_width": 0.0575,
         "成交量異動_vol_ratio": 1.157,
         "ATR14": 2.54,
-        "ATR百分比_atr_pct": 0.02385
+        "ATR百分比_atr_pct": 0.02385,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏弱，需關注105.9支撐有效性\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(60%) / 下跌(30%) / 上漲(10%)\n\n3. 關鍵支撐與壓力位: 支撐105.9 / 壓力108.7\n\n4. 看多成立條件: 开盘价高于105.9且成交量维持1.157以上\n\n5. 看空成立條件: 开盘价跌破105.9或MACD_hist持續收窄\n\n6. 開盤後最重要的3個觀察訊號: 1) 开盘价是否守稳105.9 2) 成交量是否维持放量 3) 是否突破108.7压力位\n\n7. 若做隔日短線, 較合理的交易思路: 105.9附近轻仓做多，止损103.66，目标108.7\n\n8. 本次判斷最不確定的因素: 模型預測意見分歧(ensemble看漲/lstm看跌)及權重股成交量異動持續性"
     },
     {
       "target": "銀河娛樂",
       "ticker": "0027.HK",
       "last_known_close": 33.28,
-      "ensemble_proba_up": 0.8701,
-      "lstm_proba_up": 0.4682,
-      "agreement": "disagree",
+      "ensemble_proba_up": 0.8938,
+      "lstm_proba_up": 0.5422,
+      "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.02232,
       "predicted_ohlc": {
         "expected_open": 33.4,
@@ -513,7 +536,7 @@
       "suggested_entry": 33.4,
       "suggested_stop_loss": 32.44,
       "suggested_take_profit": 34.84,
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "context_data": {
         "美股隔夜_nasdaq_ret": 0.00076,
         "美股隔夜_sp500_ret": 0.00325,
@@ -537,22 +560,24 @@
         "布林帶寬度_bb_width": 0.1124,
         "成交量異動_vol_ratio": 0.733,
         "ATR14": 0.96,
-        "ATR百分比_atr_pct": 0.02889
+        "ATR百分比_atr_pct": 0.02889,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 明日大概率小幅上漲，但需關注開盤後量價配合情況\n\n2. 上漲 / 震盪 / 下跌機率: 上漲概率89.38% / 震盪概率10.62% / 下跌概率0%\n\n3. 關鍵支撐與壓力位: 支撐位33.2（預測低點）/ 壓力位34.2（預測高點）\n\n4. 看多成立條件: RSI14（59.75）處於中性偏多區域、MACD柱狀圖為正（0.2825）、布林帶位置（0.908）接近上軌、美股隔夜指數全線走高（道指+1.08%）\n\n5. 看空成立條件: MACD線（-0.0735）仍處於負值區域、權重股平均回報（-0.647%）偏負、恒生科技相對強弱（-0.0137）顯示弱勢\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否突破33.4預測價 ② 成交量是否放大至過去5日均值1.5倍以上 ③ 早盤是否站穩33.6上方\n\n7. 若做隔日短線, 較合理的交易思路: 以33.4為入場點做多，防守位32.44，目標34.84，若早盤跌破33.2立即止損\n\n8. 本次判斷最不確定的因素: 南向資金流向數據未提供、恒指期貨隱含開盤未公布、權重股成交量異動（1.509）是否具持續性"
     },
     {
       "target": "中國海洋石油",
       "ticker": "0883.HK",
       "last_known_close": 24.2,
-      "ensemble_proba_up": 0.9377,
-      "lstm_proba_up": 0.4932,
+      "ensemble_proba_up": 0.8504,
+      "lstm_proba_up": 0.4723,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.01624,
       "predicted_ohlc": {
         "expected_open": 24.2,
-        "expected_high": 24.8,
-        "expected_low": 24.2,
+        "expected_high": 24.7,
+        "expected_low": 24.1,
         "expected_close": 24.4
       },
       "suggested_entry": 24.2,
@@ -582,16 +607,18 @@
         "布林帶寬度_bb_width": 0.0591,
         "成交量異動_vol_ratio": 2.231,
         "ATR14": 0.57,
-        "ATR百分比_atr_pct": 0.02344
+        "ATR百分比_atr_pct": 0.02344,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢: 震盪偏弱，短期或測試24.1支撐\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(47%) / 下跌(35%) / 上漲(18%)\n\n3. 關鍵支撐與壓力位: 支撐24.1(布林帶下軌) / 壓力24.7(預期高點)\n\n4. 看多成立條件: MACD柱狀圖持續擴張且突破24.7壓力位\n\n5. 看空成立條件: 突破24.1支撐且成交量持續萎縮\n\n6. 開盤後最重要的3個觀察訊號: 1. 開盤是否站穩24.3上方 2. 10分鐘內成交量是否維持2.2倍以上 3. 是否突破24.5壓力位\n\n7. 若做隔日短線, 較合理的交易思路: 輕倉在24.2附近做多，目標24.5，跌破24.1止損；或等待24.7遇阻後短空\n\n8. 本次判斷最不確定的因素: 模型預測結果分歧度高(ensemble 85%上漲 vs LSTM 47%下跌)且無權重股資金動向數據"
     },
     {
       "target": "工商銀行",
       "ticker": "1398.HK",
       "last_known_close": 7.7,
-      "ensemble_proba_up": 0.027,
-      "lstm_proba_up": 0.4743,
+      "ensemble_proba_up": 0.0142,
+      "lstm_proba_up": 0.4629,
       "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.01358,
       "predicted_ohlc": {
@@ -627,16 +654,18 @@
         "布林帶寬度_bb_width": 0.0599,
         "成交量異動_vol_ratio": 1.966,
         "ATR14": 0.16,
-        "ATR百分比_atr_pct": 0.0209
+        "ATR百分比_atr_pct": 0.0209,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 明日可能低開震盪偏弱，需觀察開盤後量價配合\n\n2. 上漲 / 震盪 / 下跌機率: 下跌(98.58%) / 震盪(46.29%) / 上漲(1.42%)\n\n3. 關鍵支撐與壓力位: 支援7.6 / 阻力7.7\n\n4. 看多成立條件: RSI14突破60 / MACD柱狀圖放大 / 成交量異動>2.0\n\n5. 看空成立條件: 開盤跌破7.6 / RSI14跌破55 / 恒生科技相對強弱進一步惡化\n\n6. 開盤後最重要的3個觀察訊號: 1) 開盤價是否有效突破7.6支撐 2) 成交量是否持續放大 3) 恒生科技指數走勢\n\n7. 若做隔日短線, 較合理的交易思路: 等待開盤後確認支撐位有效性，若有效跌破可短線做空，目標7.46，風險控制在7.86\n\n8. 本次判斷最不確定的因素: 南向資金動向與重要消息催化（數據未提供）"
     },
     {
       "target": "中國銀行",
       "ticker": "3988.HK",
       "last_known_close": 6.16,
-      "ensemble_proba_up": 0.2558,
-      "lstm_proba_up": 0.4264,
+      "ensemble_proba_up": 0.1982,
+      "lstm_proba_up": 0.466,
       "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.01255,
       "predicted_ohlc": {
@@ -672,22 +701,24 @@
         "布林帶寬度_bb_width": 0.0651,
         "成交量異動_vol_ratio": 2.07,
         "ATR14": 0.12,
-        "ATR百分比_atr_pct": 0.01931
+        "ATR百分比_atr_pct": 0.01931,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏弱，短期或測試6.1支撐\n\n2. 上漲 / 震盪 / 下跌機率: 下跌機率較高（模型預測收盤價6.1低於前日收市價6.16）\n\n3. 關鍵支撐與壓力位: 支援6.1 / 阻力6.2\n\n4. 看多成立條件: 價格突破6.2且成交量持續放大（vol_ratio 2.07顯示成交量異動）\n\n5. 看空成立條件: 跌破6.1且RSI14跌破50關鍵位（當前56.25處中性區）\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否站穩6.2 ② 成交量是否維持2.07以上 ③ RSI與MACD是否形成明顯多頭排列\n\n7. 若做隔日短線, 較合理的交易思路: 輕倉在6.2附近做多，設6.15止損；或在6.1附近尋找反彈機會，設6.08止損\n\n8. 本次判斷最不確定的因素: 美股隔夜指數反彈（DOW+1.08%）可能帶來資金流動性影響，但數據未提供港股資金流動明細"
     },
     {
       "target": "中電控股",
       "ticker": "0002.HK",
       "last_known_close": 77.4,
-      "ensemble_proba_up": 0.2253,
-      "lstm_proba_up": 0.4876,
-      "agreement": "agree_weak",
+      "ensemble_proba_up": 0.1502,
+      "lstm_proba_up": 0.4984,
+      "agreement": "agree_strong",
       "garch_daily_vol_forecast": 0.00913,
       "predicted_ohlc": {
         "expected_open": 77.3,
         "expected_high": 77.5,
-        "expected_low": 76.5,
+        "expected_low": 76.4,
         "expected_close": 77.1
       },
       "suggested_entry": 77.3,
@@ -717,16 +748,18 @@
         "布林帶寬度_bb_width": 0.0383,
         "成交量異動_vol_ratio": 1.05,
         "ATR14": 1.05,
-        "ATR百分比_atr_pct": 0.01357
+        "ATR百分比_atr_pct": 0.01357,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 短線偏弱，需觀察開盤後量價配合\n\n2. 上漲 / 震盪 / 下跌機率: 下跌機率60%，震盪35%，上漲5%\n\n3. 關鍵支撐與壓力位: 支援76.4（預測低點）、壓力77.5（預測高點）\n\n4. 看多成立條件: 開盤價突破77.5且成交量放大至1.5倍以上\n\n5. 看空成立條件: 開盤低於77.3且跌破76.4或權重股繼續萎縮\n\n6. 開盤後最重要的3個觀察訊號: 1) 開盤價與預測值偏差 2) 成交量是否維持1.05以上 3) 是否突破77.5或跌破76.4\n\n7. 若做隔日短線, 較合理的交易思路: 以77.3為入場點，跌破76.4止損，目標77.5（風險回報比1:1.2）\n\n8. 本次判斷最不確定的因素: 權重股成交量異動（1.509）是否持續放大及消息面突發變化"
     },
     {
       "target": "長和",
       "ticker": "0001.HK",
       "last_known_close": 65.0,
-      "ensemble_proba_up": 0.9846,
-      "lstm_proba_up": 0.4776,
+      "ensemble_proba_up": 0.9895,
+      "lstm_proba_up": 0.4457,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.01519,
       "predicted_ohlc": {
@@ -762,21 +795,23 @@
         "布林帶寬度_bb_width": 0.054,
         "成交量異動_vol_ratio": 1.365,
         "ATR14": 1.29,
-        "ATR百分比_atr_pct": 0.01989
+        "ATR百分比_atr_pct": 0.01989,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 高概率上漲，但需警惕模型分歧風險  \n\n2. 上漲 / 震盪 / 下跌機率: 上漲機率98.95%（數據未提供震盪/下跌機率）  \n\n3. 關鍵支撐與壓力位: 支撐位65.0（預期低點/前收市價），壓力位66.4（預期高點）  \n\n4. 看多成立條件: RSI14=33.15（超賣區）、成交量異動1.365（放量）、布林帶位置-0.1431（接近下軌）  \n\n5. 看空成立條件: MACD=-0.7109（負值）、MACD_hist=-0.1627（負柱擴張）  \n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否突破66.4 ② 成交量是否持續放大 ③ RSI是否反彈至40以上  \n\n7. 若做隔日短線, 較合理的交易思路: 于65.0附近輕倉做多，設63.81止損，目標67.04，但需觀察開盤後量價配合  \n\n8. 本次判斷最不確定的因素: 模型協調性不足（agreement=disagree）、重要消息催化未提供、南向資金數據未提供"
     },
     {
       "target": " 比亞迪股份",
       "ticker": "1211.HK",
       "last_known_close": 72.95,
-      "ensemble_proba_up": 0.9753,
-      "lstm_proba_up": 0.4823,
+      "ensemble_proba_up": 0.9686,
+      "lstm_proba_up": 0.4473,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.02084,
       "predicted_ohlc": {
         "expected_open": 73.0,
-        "expected_high": 75.3,
+        "expected_high": 75.2,
         "expected_low": 72.7,
         "expected_close": 73.7
       },
@@ -807,16 +842,18 @@
         "布林帶寬度_bb_width": 0.1672,
         "成交量異動_vol_ratio": 0.964,
         "ATR14": 2.32,
-        "ATR百分比_atr_pct": 0.03182
+        "ATR百分比_atr_pct": 0.03182,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 短線偏強震盪，需觀察開盤後量價配合\n\n2. 上漲 / 震盪 / 下跌機率: 上漲機率高(ensemble_proba_up=96.86%)，但模型分歧大，其他數據未提供\n\n3. 關鍵支撐與壓力位: 支援72.7(預測低價)/70.68(止損位)，壓力75.2(預測高價)/76.48(目標位)\n\n4. 看多成立條件: RSI14=27.18(超賣區)/MACD柱狀圖正向/預測開盤價73.0支撐\n\n5. 看空成立條件: LSTM模型看跌(44.73%)/權重股平均回報-0.65%/布林帶位置0.2163(中軌偏上)\n\n6. 開盤後最重要的3個觀察訊號: 1. 開盤價是否站穩73.0 2. 成交量是否放大(目前vol_ratio=0.964) 3. RSI是否反彈至30以上\n\n7. 若做隔日短線, 較合理的交易思路: 73.0附近輕倉做多，嚴守70.68止損，目標73.7-75.2\n\n8. 本次判斷最不確定的因素: 模型預測分歧(ensemble與LSTM強烈不同意見)/消息面空白/權重股動態負回報"
     },
     {
       "target": "信義光能",
       "ticker": "0968.HK",
       "last_known_close": 1.85,
-      "ensemble_proba_up": 0.9244,
-      "lstm_proba_up": 0.4456,
+      "ensemble_proba_up": 0.9043,
+      "lstm_proba_up": 0.4571,
       "agreement": "disagree",
       "garch_daily_vol_forecast": 0.02547,
       "predicted_ohlc": {
@@ -852,9 +889,11 @@
         "布林帶寬度_bb_width": 0.1142,
         "成交量異動_vol_ratio": 1.425,
         "ATR14": 0.08,
-        "ATR百分比_atr_pct": 0.04131
+        "ATR百分比_atr_pct": 0.04131,
+        "news_headlines": []
       },
-      "error": null
+      "error": null,
+      "llm_analysis": "\n\n1. 明日最可能走勢一句話結論: 震盪偏弱，需觀察開盤走勢\n\n2. 上漲 / 震盪 / 下跌機率: 震盪(55%) > 下跌(30%) > 上漲(15%)\n\n3. 關鍵支撐與壓力位: 支撐1.80(開盤預測)/1.72(止損位) 壓力1.90(預測收盤)/1.91(止盈位)\n\n4. 看多成立條件: 開盤價突破1.85(昨日收市價)且成交量持續放大\n\n5. 看空成立條件: 開盤即跌破1.80且MACD柱狀圖持續收縮\n\n6. 開盤後最重要的3個觀察訊號: ① 開盤價是否站穩1.85 ② 首小時成交量是否超1.425倍 ③ 是否突破1.90壓力位\n\n7. 若做隔日短線, 較合理的交易思路: 1.80附近輕倉做多，設1.72止損，目標1.90-1.91，若破1.85加倉\n\n8. 本次判斷最不確定的因素: 模型預測意見分歧(ensemble與lstm強烈反向)及未提供的南向資金動向"
     }
   ]
 }
