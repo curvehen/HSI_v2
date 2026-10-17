@@ -163,7 +163,7 @@ WATCHLIST = {
 # ---- LLM Analysis設定 (Cloudflare Workers AI) ----
 # ---------- Cloudflare AI ----------
 CF_MODEL = "@cf/qwen/qwen3-30b-a3b-fp8"
-LLM_MAX_TOKENS = 1500
+LLM_MAX_TOKENS = 2000
 LLM_TEMPERATURE = 0.4
 ENABLE_LLM_ANALYSIS = True
 
