@@ -1,5 +1,8 @@
 name: Daily HSI Prediction
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: '0 1 * * 1-5'
@@ -10,12 +13,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt
-      - run: mkdir -p predictions
-      - run: python predict.py
+
+      - name: Install TA-Lib system dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential wget
+          wget https://github.com/ta-lib/ta-lib/releases/download/v0.6.4/ta-lib_0.6.4_amd64.deb
+          sudo dpkg -i ta-lib_0.6.4_amd64.deb || sudo apt-get install -f -y
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Make predictions folder
+        run: mkdir -p predictions models_store
+
+      - name: Run prediction
+        run: python predict.py
+
       - name: Commit prediction
         run: |
           git config --global user.name "github-actions"
