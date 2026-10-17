@@ -80,3 +80,50 @@ def build_stock_prompt(payload):
         f"數據: {payload_str}"
     )
     return prompt
+
+
+def build_watchlist_summary_prompt(results):
+    """
+    將全部watchlist結果彙總做一個prompt, 要求LLM輸出一個合併總結表格。
+    規則: 只有真實news_headlines先可以寫"原因", 冇新聞就寫"技術面/量化訊號, 無重大消息"。
+    """
+    import json
+
+    simplified = []
+    for r in results:
+        if r.get("error"):
+            continue
+        simplified.append({
+            "股票": r["target"],
+            "代號": r["ticker"],
+            "最新收市價": r.get("last_known_close"),
+            "上升機率": r.get("ensemble_proba_up"),
+            "模型對齊狀態": r.get("agreement"),
+            "信心過濾結果": r.get("confidence_filter_pass"),
+            "建議入場位": r.get("suggested_entry"),
+            "止蝕位": r.get("suggested_stop_loss"),
+            "止賺位": r.get("suggested_take_profit"),
+            "RSI14": r.get("context_data", {}).get("RSI14"),
+            "MACD_hist": r.get("context_data", {}).get("MACD_hist"),
+            "真實新聞標題": r.get("context_data", {}).get("news_headlines", []),
+        })
+
+    payload_str = json.dumps(simplified, ensure_ascii=False)
+
+    prompt = (
+        "以下係一份港股watchlist嘅量化模型預測彙總數據(JSON格式), 包含多隻股票。\n\n"
+        "請用繁體中文, 為每隻股票輸出一行總結, 組成一個表格。\n\n"
+        "規則(必須嚴格遵守):\n"
+        "- 「原因」一欄只可以根據JSON入面'真實新聞標題'呢個欄位嘅實際內容嚟寫, "
+        "如果呢個list係空嘅, 你要睇下CCASS 有冇大變化, 有就出CCASS 的變化影響 否則, 必須寫'技術面/量化訊號, 無重大消息', 絕對不可以自行捏造任何新聞、"
+        "業績、回購、公告等消息\n"
+        "- 如果有真實新聞標題, 可以簡潔引用嗰個標題嘅重點, 但唔可以加工想像額外細節\n"
+        "- 方向(買/賣/觀望): 根據AI 的計算出的結果 > 買; 賣; 觀望\n"
+        "- 信心根據'根據AI 的計算出的結果: "
+        "filter_pass=true且agree_strong -> 高; filter_pass=true且agree_weak -> 中; 其餘 -> 低\n\n"
+        "請輸出一個Markdown表格, 欄位依次為: "
+        "股票 | 代號 | 方向(買/賣/觀望) | 信心(高/中/低) | 建議入場位 | 止蝕位 | 原因\n\n"
+        "表格之後, 加一段【總結】(50字以內), 指出今日watchlist入面邊幾隻訊號最強、邊幾隻要觀望。\n\n"
+        f"數據: {payload_str}"
+    )
+    return prompt
