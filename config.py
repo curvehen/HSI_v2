@@ -39,3 +39,10 @@ AH_PAIRS = {
 
 HSTECH_TICKER = "^HSTECH"
 USDCNH_TICKER = "USDCNH=X"
+
+SIM_START_DATE = "2026-01-01"
+SIM_END_DATE = None  # None = 跑到最新可用日期
+LSTM_RETRAIN_FREQ_DAYS = 5   # LSTM每5個交易日重訓一次
+TREE_RETRAIN_FREQ_DAYS = 1   # 樹模型每日重訓
+MIN_TRAIN_HISTORY = 500      # 最少要有幾多日歷史先開始模擬
+
