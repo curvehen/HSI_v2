@@ -2,7 +2,7 @@
   "run_date": "2026-10-17",
   "last_known_close": 24062.7,
   "ensemble_proba_up": 0.6583,
-  "lstm_proba_up": 0.488,
+  "lstm_proba_up": 0.4743,
   "agreement": "disagree",
   "garch_daily_vol_forecast": 0.01079,
   "predicted_ohlc": {
@@ -14,5 +14,5 @@
   "suggested_entry": 24017.6,
   "suggested_stop_loss": 23662.4,
   "suggested_take_profit": 24550.4,
-  "confidence_filter_pass": true
+  "confidence_filter_pass": false
 }
