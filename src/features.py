@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+from src.candlestick_patterns import add_candlestick_features
 
 def _rsi(series, period=14):
     delta = series.diff()
@@ -43,7 +43,8 @@ def _bollinger(series, period=20, n_std=2):
 
 def build_features(df):
     df = df.copy()
-
+    df = add_candlestick_features(df)   # <-- 加呢行, 放喺最開頭技術指標計算之前
+    
     df["hsi_ret_1d"] = df["hsi_close"].pct_change()
     df["hsi_ret_5d"] = df["hsi_close"].pct_change(5)
     df["hsi_ret_10d"] = df["hsi_close"].pct_change(10)
@@ -101,5 +102,8 @@ FEATURE_COLUMNS = [
     "vix_level", "atr_pct", "rsi14", "macd", "macd_signal", "macd_hist",
     "bb_width", "bb_position", "vol_ratio", "topweight_avg_ret",
     "topweight_volume_ratio", "ah_premium_change_proxy",
-    "tech_relative_strength_proxy", "usdcnh_ret_proxy"
+    "tech_relative_strength_proxy", "usdcnh_ret_proxy",
+    "candlestick_sentiment_score",
+    "pattern_doji", "pattern_hammer", "pattern_engulfing",
+    "pattern_morning_star", "pattern_evening_star",
 ]
