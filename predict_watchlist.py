@@ -1,97 +1,160 @@
-from src.predict_single import predict_single_ticker
-from src.performance_tracker import log_prediction
-from src.llm_analysis import generate_hsi_analysis, generate_stock_analysis, generate_watchlist_summary
-from config import WATCHLIST, BENCHMARK_TICKER, START_DATE, ENABLE_LLM_ANALYSIS,ENABLE_EMAIL
+"""
+每日執行入口: 對watchlist全部ticker跑預測, 組裝context_data,
+呼叫LLM生成分析, 回填/記錄hit-rate, 最後發送email。
+"""
+
 import json
 import os
 from datetime import datetime
+
+from config import WATCHLIST, MACRO_TICKERS, SECTOR_MAP
+from src.data_fetch import fetch_ohlcv, fetch_latest_close
+from src.features import build_features
+from src.ensemble import load_or_train_ensemble, ensemble_predict_proba
+from src.lstm_model import load_or_train_lstm, lstm_predict_proba
+from src.garch_model import forecast_volatility
+from src.risk import predict_next_ohlc, compute_entry_exit, risk_reward_ratio
+from src.candlestick_patterns import detect_patterns
+from src.regime import classify_regime
+from src.llm_prompts import build_stock_prompt
+from src.llm_analysis import generate_analysis
+from src.hit_rate import resolve_pending_predictions, log_new_prediction, get_hit_rate
 from src.email_sender import send_prediction_email
 
+PREDICTIONS_DIR = "predictions"
+OUTPUT_PATH = os.path.join(PREDICTIONS_DIR, "watchlist_prediction.json")
 
 
-def main():
-    run_date = datetime.now().strftime("%Y-%m-%d")
-    all_results = []
+def agreement_score(ensemble_direction, lstm_direction):
+    return "agree" if ensemble_direction == lstm_direction else "disagree"
 
-    print(f"=== 批量預測開始: {len(WATCHLIST)} 個標的 ===\n")
 
-    for label, ticker in WATCHLIST.items():
-        print(f"--- 處理: {label} ({ticker}) ---")
-        result = predict_single_ticker(
-            label=label, ticker=ticker,
-            benchmark_ticker=BENCHMARK_TICKER, start=START_DATE
-        )
+def confidence_filter_pass(proba_up, agreement):
+    """
+    信心過濾規則: 機率需夠極端(偏離0.5足夠遠), 且Ensemble與LSTM方向一致, 才算通過。
+    閾值可按你哋之前Champion-Challenger驗證結果調整。
+    """
+    distance = abs(proba_up - 0.5)
+    return agreement == "agree" and distance >= 0.15
 
-        if result.get("error"):
-            print(f"失敗: {result['error']}\n")
-            all_results.append(result)
-            continue
 
-        print(f"proba_up={result['ensemble_proba_up']} | "
-              f"agreement={result['agreement']} | "
-              f"filter_pass={result['confidence_filter_pass']}")
-
-        if ENABLE_LLM_ANALYSIS:
-            try:
-                if label == "HSI":
-                    result["llm_analysis"] = generate_hsi_analysis(result)
-                else:
-                    result["llm_analysis"] = generate_stock_analysis(result)
-            except Exception as e:
-                print(f"警告: LLM個股分析失敗 ({e})")
-                result["llm_analysis"] = None
-        else:
-            result["llm_analysis"] = None
-
-        log_record = {
-            "run_date": run_date,
-            "target": label,
-            "ensemble_proba_up": result["ensemble_proba_up"],
-            "agreement": result["agreement"],
-            "predicted_open": result["predicted_ohlc"]["expected_open"],
-            "predicted_high": result["predicted_ohlc"]["expected_high"],
-            "predicted_low": result["predicted_ohlc"]["expected_low"],
-            "predicted_close": result["predicted_ohlc"]["expected_close"],
-        }
-        log_prediction(log_record)
-
-        all_results.append(result)
-        print()
-
-    # ---- 生成合併Summary表格(用最新一次run嘅全部結果) ----
-    summary_text = None
-    if ENABLE_LLM_ANALYSIS:
-        print("正在生成Watchlist總結表格...")
+def build_macro_context():
+    """抓取macro tickers嘅最新數值, 組成context_data嘅市場背景部分"""
+    macro = {}
+    for ticker in MACRO_TICKERS:
         try:
-            summary_text = generate_watchlist_summary(all_results)
+            macro[ticker] = fetch_latest_close(ticker)
         except Exception as e:
-            print(f"警告: Summary生成失敗 ({e})")
-            summary_text = f"[Summary生成失敗: {e}]"
+            print(f"警告: 無法取得 {ticker} 最新數據 ({e})")
+            macro[ticker] = None
+    return macro
 
-    output = {
-        "run_date": run_date,
-        "summary": summary_text,
-        "results": all_results,
-    }
 
-    os.makedirs("predictions", exist_ok=True)
-    with open("predictions/watchlist_prediction.json", "w") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
+def predict_single_target(target_name, ticker, macro_context, run_date):
+    try:
+        df = fetch_ohlcv(ticker)
+        features_df = build_features(df, macro_context=macro_context)
 
-    print("\n=== 批量預測完成 ===\n")
-    print("=== Watchlist Summary ===\n")
-    print(summary_text)
-    print(f"\n完整結果已存至 predictions/watchlist_prediction.json")
+        ensemble_model = load_or_train_ensemble(ticker)
+        proba_up_ensemble = ensemble_predict_proba(ensemble_model, features_df)
+        ensemble_direction = "up" if proba_up_ensemble >= 0.5 else "down"
 
-    if ENABLE_EMAIL:
-        print("\n正在發送Email...")
-        send_prediction_email(output)
+        lstm_model = load_or_train_lstm(ticker)
+        proba_up_lstm = lstm_predict_proba(lstm_model, features_df)
+        lstm_direction = "up" if proba_up_lstm >= 0.5 else "down"
 
-    failed = [r["target"] for r in all_results if r.get("error")]
-    if failed:
-        print(f"\n警告: {len(failed)} 個標的處理失敗: {failed}")
+        agreement = agreement_score(ensemble_direction, lstm_direction)
+        passed_filter = confidence_filter_pass(proba_up_ensemble, agreement)
 
-    
+        atr = forecast_volatility(df)
+        last_close = float(df["Close"].iloc[-1])
+
+        predicted_ohlc = predict_next_ohlc(
+            last_close=last_close, proba_up=proba_up_ensemble, atr=atr
+        )
+        entry, stop, target_price = compute_entry_exit(
+            last_close=last_close, predicted_ohlc=predicted_ohlc, proba_up=proba_up_ensemble
+        )
+        rr_ratio = risk_reward_ratio(entry, stop, target_price)
+
+        rsi14 = float(features_df["RSI14"].iloc[-1]) if "RSI14" in features_df.columns else None
+        patterns = detect_patterns(df)
+
+        regime = classify_regime(macro_context.get("^VIX")) if target_name == "HSI" else None
+
+        context_data = {
+            "target": target_name,
+            "ticker": ticker,
+            "run_date": run_date,
+            "last_known_close": last_close,
+            "ensemble_proba_up": proba_up_ensemble,
+            "lstm_proba_up": proba_up_lstm,
+            "agreement": agreement,
+            "confidence_filter_pass": passed_filter,
+            "predicted_ohlc": predicted_ohlc,
+            "suggested_entry": entry,
+            "suggested_stop_loss": stop,
+            "suggested_take_profit": target_price,
+            "risk_reward_ratio": rr_ratio,
+            "ATR14": atr,
+            "RSI14": rsi14,
+            "candlestick_patterns": patterns,
+            "regime": regime,
+            "macro_context": macro_context,
+        }
+
+        prompt = build_stock_prompt(context_data)
+        llm_text = generate_analysis(prompt)
+        context_data["llm_analysis"] = llm_text
+
+        hit_rate_str, hit_rate_n = get_hit_rate(ticker)
+        context_data["hit_rate"] = hit_rate_str
+        context_data["hit_rate_samples"] = hit_rate_n
+
+        log_new_prediction(target_name, ticker, proba_up_ensemble, last_close, run_date=run_date)
+
+        return context_data
+
+    except Exception as e:
+        print(f"錯誤: {target_name} ({ticker}) 預測失敗 - {e}")
+        return {"target": target_name, "ticker": ticker, "error": str(e)}
+
+
+def run():
+    run_date = datetime.now().strftime("%Y-%m-%d")
+    os.makedirs(PREDICTIONS_DIR, exist_ok=True)
+
+    print("步驟1: 抓取macro context...")
+    macro_context = build_macro_context()
+
+    print("步驟2: 回填上一輪未結算嘅預測(hit-rate)...")
+    current_prices = {}
+    for target_name, ticker in WATCHLIST.items():
+        try:
+            current_prices[ticker] = fetch_latest_close(ticker)
+        except Exception as e:
+            print(f"警告: 無法取得 {ticker} 最新價格做回填 ({e})")
+    resolve_pending_predictions(current_prices)
+
+    print("步驟3: 逐個target執行預測...")
+    results = []
+    for target_name, ticker in WATCHLIST.items():
+        print(f"  -> 處理 {target_name} ({ticker})")
+        result = predict_single_target(target_name, ticker, macro_context, run_date)
+        results.append(result)
+
+    output = {"run_date": run_date, "results": results}
+
+    print(f"步驟4: 儲存結果至 {OUTPUT_PATH}")
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2, default=str)
+
+    print("步驟5: 發送email...")
+    send_prediction_email(output)
+
+    print("完成。")
+    return output
+
 
 if __name__ == "__main__":
-    main()
+    run()
