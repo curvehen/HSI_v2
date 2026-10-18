@@ -1,94 +1,96 @@
+"""
+輕量級命中率追蹤: 獨立csv log, 唔依賴performance_tracker.py嘅內部schema,
+避免同predict.py現有嘅PREDICTION_HISTORY_PATH撞用途。
+"""
+
 import os
-import pandas as pd
+import csv
 from datetime import datetime
 
-HISTORY_PATH = "predictions/prediction_history.csv"
-MIN_RECORDS_FOR_DISPLAY = 5
-LOOKBACK_WINDOW = 20
+LOOKBACK_WINDOW = 20          # 命中率計算嘅滾動窗口(最多幾多次近期預測)
+MIN_RECORDS_FOR_DISPLAY = 5   # 少於呢個樣本數, 顯示"—", 唔展示命中率
+
+LOG_PATH = "predictions/watchlist_hit_log.csv"
+FIELDNAMES = ["run_date", "target", "ticker", "predicted_direction",
+              "base_close", "resolved", "actual_direction", "correct"]
 
 
-def _load_history():
-    if not os.path.exists(HISTORY_PATH):
-        return pd.DataFrame(columns=[
-            "date", "target", "ticker", "proba_up",
-            "predicted_direction", "last_known_close",
-            "actual_close", "actual_direction", "correct"
-        ])
-    return pd.read_csv(HISTORY_PATH, parse_dates=["date"])
+def _load_log():
+    if not os.path.exists(LOG_PATH):
+        return []
+    with open(LOG_PATH, newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
 
 
-def _save_history(df):
-    os.makedirs(os.path.dirname(HISTORY_PATH), exist_ok=True)
-    df.to_csv(HISTORY_PATH, index=False)
+def _save_log(rows):
+    os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+    with open(LOG_PATH, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
-def resolve_pending_predictions(current_price_lookup):
+def resolve_pending_predictions(df, ticker):
     """
-    喺新一輪預測開始前調用。
-    current_price_lookup: dict {ticker: 最新實際收市價}
-    將上一次未回填嘅預測, 用而家嘅實際價格計算方向是否答啱。
+    用最新df(含target_close)嘅歷史價位, 回填之前未解析嘅預測結果。
+    邏輯: 若log內某行run_date喺df index出現, 而且df入面有佢下一個交易日嘅收市價,
+    就可以判斷實際方向, 同predicted_direction比較, 寫返correct/resolved。
     """
-    df = _load_history()
-    if df.empty:
-        return df
+    rows = _load_log()
+    if not rows:
+        return
 
-    pending_mask = df["actual_close"].isna()
-    for idx in df[pending_mask].index:
-        ticker = df.at[idx, "ticker"]
-        if ticker not in current_price_lookup:
+    dates = df.index.strftime("%Y-%m-%d").tolist()
+    changed = False
+
+    for row in rows:
+        if row["ticker"] != ticker or row["resolved"] == "True":
             continue
-        actual_close = current_price_lookup[ticker]
-        last_close = df.at[idx, "last_known_close"]
+        run_date = row["run_date"]
+        if run_date not in dates:
+            continue
+        idx = dates.index(run_date)
+        if idx + 1 >= len(dates):
+            continue  # 下一個交易日仲未出現, 保持pending
 
-        actual_direction = "up" if actual_close > last_close else "down"
-        predicted_direction = df.at[idx, "predicted_direction"]
-        correct = (actual_direction == predicted_direction)
+        base_close = float(row["base_close"])
+        next_close = float(df["target_close"].iloc[idx + 1])
+        actual_direction = 1 if next_close > base_close else -1
 
-        df.at[idx, "actual_close"] = actual_close
-        df.at[idx, "actual_direction"] = actual_direction
-        df.at[idx, "correct"] = correct
+        row["actual_direction"] = str(actual_direction)
+        row["correct"] = str(actual_direction == int(row["predicted_direction"]))
+        row["resolved"] = "True"
+        changed = True
 
-    _save_history(df)
-    return df
+    if changed:
+        _save_log(rows)
 
 
-def log_new_prediction(target, ticker, proba_up, last_known_close, run_date=None):
-    """預測完成後調用, 存低今次嘅預測方向(actual_close暫留空, 等下次回填)"""
-    df = _load_history()
-    run_date = run_date or datetime.now().strftime("%Y-%m-%d")
-
-    predicted_direction = "up" if proba_up >= 0.5 else "down"
-
-    new_row = {
-        "date": run_date,
-        "target": target,
+def log_new_prediction(target_label, ticker, run_date, predicted_direction, base_close):
+    rows = _load_log()
+    rows.append({
+        "run_date": run_date,
+        "target": target_label,
         "ticker": ticker,
-        "proba_up": proba_up,
-        "predicted_direction": predicted_direction,
-        "last_known_close": last_known_close,
-        "actual_close": None,
-        "actual_direction": None,
-        "correct": None,
-    }
-    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-    _save_history(df)
+        "predicted_direction": str(predicted_direction),
+        "base_close": str(base_close),
+        "resolved": "False",
+        "actual_direction": "",
+        "correct": "",
+    })
+    _save_log(rows)
 
 
-def get_hit_rate(ticker, lookback=LOOKBACK_WINDOW):
-    """
-    回傳(命中率字串, 樣本數)。
-    樣本不足MIN_RECORDS_FOR_DISPLAY時, 回傳"—", 避免虛構數字。
-    """
-    df = _load_history()
-    if df.empty:
-        return "—", 0
+def get_hit_rate(ticker):
+    """回傳 (顯示用字串, 樣本數)。樣本唔夠就回傳 ('—', n)"""
+    rows = _load_log()
+    resolved = [r for r in rows if r["ticker"] == ticker and r["resolved"] == "True"]
+    resolved = resolved[-LOOKBACK_WINDOW:]
+    n = len(resolved)
 
-    subset = df[(df["ticker"] == ticker) & (df["correct"].notna())]
-    subset = subset.sort_values("date", ascending=False).head(lookback)
-
-    n = len(subset)
     if n < MIN_RECORDS_FOR_DISPLAY:
         return "—", n
 
-    hit_rate = subset["correct"].mean()
-    return f"{hit_rate * 100:.1f}%", n
+    correct_count = sum(1 for r in resolved if r["correct"] == "True")
+    rate = correct_count / n
+    return f"{rate*100:.1f}%", n
