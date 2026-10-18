@@ -5,7 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime
 from config import (EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT, EMAIL_RECEIVERS,
-                     EMAIL_SUBJECT_PREFIX)
+                     EMAIL_SUBJECT_PREFIX,SECTOR_MAP)
 
 
 # ---------------------------------------------------------------------------
