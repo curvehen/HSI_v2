@@ -167,5 +167,17 @@ LLM_MAX_TOKENS = 2000
 LLM_TEMPERATURE = 0.4
 ENABLE_LLM_ANALYSIS = True
 
+# ---- Email發送設定 ----
+ENABLE_EMAIL = True
+EMAIL_SMTP_SERVER = "smtp.gmail.com"   # Gmail; 如用Outlook改做 smtp.office365.com
+EMAIL_SMTP_PORT = 587
+EMAIL_SENDER = "pkw.sunny@gmail.com"   # 發件人email, 建議改用環境變數, 下面會講
+EMAIL_RECEIVERS = [
+    "pkw.sunny@gmail.com",
+    "pkw.sunny@gmail.com",
+    "pkw.sunny@gmail.com",
+]
+EMAIL_SUBJECT_PREFIX = "港股量化模型每日預測"
+
 
 
