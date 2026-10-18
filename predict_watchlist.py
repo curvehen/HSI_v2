@@ -1,10 +1,12 @@
 from src.predict_single import predict_single_ticker
 from src.performance_tracker import log_prediction
 from src.llm_analysis import generate_hsi_analysis, generate_stock_analysis, generate_watchlist_summary
-from config import WATCHLIST, BENCHMARK_TICKER, START_DATE, ENABLE_LLM_ANALYSIS
+from config import WATCHLIST, BENCHMARK_TICKER, START_DATE, ENABLE_LLM_ANALYSIS,ENABLE_EMAIL
 import json
 import os
 from datetime import datetime
+from src.email_sender import send_prediction_email
+
 
 
 def main():
@@ -81,10 +83,15 @@ def main():
     print(summary_text)
     print(f"\n完整結果已存至 predictions/watchlist_prediction.json")
 
+    if ENABLE_EMAIL:
+        print("\n正在發送Email...")
+        send_prediction_email(output)
+
     failed = [r["target"] for r in all_results if r.get("error")]
     if failed:
         print(f"\n警告: {len(failed)} 個標的處理失敗: {failed}")
 
+    
 
 if __name__ == "__main__":
     main()
