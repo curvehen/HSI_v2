@@ -158,7 +158,7 @@ WATCHLIST = {
     "信義光能": "0968.HK",
     # 可自行新增任何你想監察嘅股票, 格式: "顯示名稱": "ticker代碼"
 }
-MACRO_TICKERS = ["^IXIC", "^GSPC", "^DJI", "DX-Y.NYB", "^VIX", "^TNX", "USDCNH=X", "3032.HK"]
+MACRO_DISPLAY_TICKERS = ["^IXIC", "^GSPC", "^DJI", "DX-Y.NYB", "^VIX", "^TNX", "USDCNH=X", "3032.HK"]
 
 # config.py 建議加一個簡單板塊對照表(可自行擴充, 冇對應嘅顯示"—")
 SECTOR_MAP = {
