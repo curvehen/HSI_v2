@@ -24,17 +24,18 @@ def _signal_label(proba):
     return "觀望 —", "#7f8c8d"
 
 
-def _strength_label(proba, agreement):
+def _strength_label(proba, agreement, lstm_proba=None):
     if proba is None:
         return "—"
     distance = abs(proba - 0.5)
+    base = "強" if distance > 0.35 else "中" if distance > 0.15 else "弱"
     if agreement == "disagree":
-        return "弱(分歧)"
-    if distance > 0.35:
-        return "強"
-    if distance > 0.15:
-        return "中"
-    return "弱"
+        gap = abs(proba - lstm_proba) if lstm_proba is not None else None
+        gap_str = f", 模型分歧度{gap:.2f}" if gap is not None else ""
+        return f"{base}(分歧{gap_str})"
+    return base
+
+
 
 
 def _pct(value):
