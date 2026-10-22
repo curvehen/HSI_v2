@@ -30,7 +30,7 @@ def _call_llm(prompt_text, max_tokens=None, retries=2):
 
     payload = {
         "messages": [
-            {"role": "system", "content": "你是一位專業港股短線交易分析師, 只根據提供嘅數據分析, 絕不虛構數據。"},
+            {"role": "system", "content": "你係一位獨立嘅港股短線交易分析師, 只根據提供嘅原始市場數據分析, 絕不虛構數據, 亦都唔會參考或假設任何其他模型/系統嘅預測結論,你嘅判斷必須完全基於自己對數據嘅解讀。"},
             {"role": "user", "content": prompt_with_control},
         ],
         "max_tokens": tokens_to_use,
