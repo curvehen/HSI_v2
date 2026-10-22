@@ -231,17 +231,27 @@ def build_independent_payload(r):
     return {k: v for k, v in r.items() if k not in MODEL_DERIVED_KEYS}
 
 def attach_llm_analysis(results):
+    """為每個result加llm_analysis文字欄位。LLM唔可用時跳過, 唔會令pipeline中斷。"""
+    if not LLM_AVAILABLE:
+        for r in results:
+            r["llm_analysis"] = None
+        return results
+
     for r in results:
         if r.get("error"):
+            r["llm_analysis"] = None
             continue
-
-        independent_payload = build_independent_payload(r)  # 新增: 過濾後的乾淨payload
-
-        if r["target"] == "HSI":
-            r["llm_analysis"] = generate_hsi_analysis(independent_payload)
-        else:
-            r["llm_analysis"] = generate_stock_analysis(independent_payload)
+        try:
+            independent_payload = build_independent_payload(r)
+            if r["target"] == "HSI":
+                r["llm_analysis"] = generate_hsi_analysis(independent_payload)
+            else:
+                r["llm_analysis"] = generate_stock_analysis(independent_payload)
+        except Exception as e:
+            print(f"警告: {r['target']} LLM分析失敗 ({e})")
+            r["llm_analysis"] = None
     return results
+
 
 
 def main():
