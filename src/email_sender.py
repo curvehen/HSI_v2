@@ -351,3 +351,27 @@ def send_prediction_email(output):
     except Exception as e:
         print(f"警告: Email發送失敗 ({e})")
         return False
+
+# 新增輔助函數
+def compare_model_vs_llm(r):
+    """
+    比對量化模型方向 vs LLM獨立判斷方向, 標記一致/分歧。
+    注意: 這只是事後比對, LLM生成當下完全不知道模型結論。
+    """
+    model_direction = "上升" if r.get("ensemble_proba_up", 0.5) > 0.5 else "下跌"
+    llm_text = r.get("llm_analysis", "")
+    # 簡易關鍵字判斷LLM傾向(可依實際輸出格式調整比對邏輯)
+    if "上升" in llm_text[:200]:
+        llm_direction = "上升"
+    elif "下跌" in llm_text[:200]:
+        llm_direction = "下跌"
+    else:
+        llm_direction = "不明確"
+
+    agree = (model_direction == llm_direction)
+    return {
+        "model_direction": model_direction,
+        "llm_direction": llm_direction,
+        "agree": agree,
+        "label": "✅ 兩者一致" if agree else "⚠️ 兩者分歧(值得留意)",
+    }
