@@ -156,13 +156,8 @@ def predict_single_target(target_label, ticker):
         log_new_prediction(target_label, ticker, run_date, direction, last_close)
         hit_rate_str, hit_rate_n = get_hit_rate(ticker)
 
-        if target_label == "HSI":
-            southbound = get_southbound_flow()               # 先試真實數據
-            if southbound is None:
-                southbound = estimate_southbound_proxy()      # 失敗則fallback模擬代理
-            context_data["南向資金"] = southbound
-            context_data["恒指科技期指隱含開盤"] = estimate_hstech_implied_open()
-            context_data["重要消息催化_初篩"] = flag_potential_catalyst(news)
+
+        # predict_single_target() 內，context_data 區塊改為：
         us_overnight = {
             "sp500_ret": round(float(raw["sp500_close"].pct_change().iloc[-1]), 4)
                          if "sp500_close" in raw.columns else None,
@@ -173,23 +168,21 @@ def predict_single_target(target_label, ticker):
             if "usdcnh_ret_proxy" in raw.columns else None
         topweight_latest = round(float(raw["topweight_avg_ret"].iloc[-1]), 4) \
             if "topweight_avg_ret" in raw.columns else None
-
-        # ---- 新增：context_data 擴充（僅HSI/指數類target才附加宏觀欄位）----
+        
         context_data = {
             "RSI14": round(rsi_latest, 1),
             "MACD_hist": round(macd_hist_latest, 4),
-            "news_headlines": fetch_latest_news(ticker, max_items=3),   # 接線news_fetch,   ---- 新增：實際抓取新聞 ----
+            "news_headlines": fetch_latest_news(ticker, max_items=3),   # 接線news_fetch ---- 新增：實際抓取新聞 ----
             "美股隔夜": us_overnight,
             "人民幣匯率變動": usdcnh_latest,
             "權重股平均報酬": topweight_latest,
         }
-
-      if target_label == "HSI":
-        southbound = get_southbound_flow() or estimate_southbound_proxy()
-        context_data["南向資金"] = southbound
-        context_data["恒指期貨隱含開盤方向"] = estimate_hstech_implied_open()
-        context_data["重要消息催化_初篩"] = flag_potential_catalyst(context_data["news_headlines"])
-
+        if target_label == "HSI":
+            southbound = get_southbound_flow() or estimate_southbound_proxy()
+            context_data["南向資金"] = southbound
+            context_data["恒指期貨隱含開盤方向"] = estimate_hstech_implied_open()
+            context_data["重要消息催化_初篩"] = flag_potential_catalyst(context_data["news_headlines"])
+   
 
         result = {
             "target": target_label,
