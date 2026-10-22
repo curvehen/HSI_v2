@@ -1,8 +1,10 @@
-# src/macro_data.py (新檔案)
 """
 宏觀輔助數據抓取模組：南向資金、恒生科技期指隱含開盤估算。
 這些數據並非HKEX官方即時API輸出，使用時須在LLM prompt/報告中註明來源與局限性。
 """
+
+import pandas as pd
+
 try:
     import akshare as ak
     AKSHARE_AVAILABLE = True
@@ -37,7 +39,6 @@ def get_southbound_flow():
         print(f"警告: 無法取得南向資金數據 ({e})")
         return None
 
-# 加入 src/macro_data.py
 
 def estimate_hstech_implied_open(lookback_days=90):
     """
@@ -74,4 +75,68 @@ def estimate_hstech_implied_open(lookback_days=90):
         }
     except Exception as e:
         print(f"警告: 無法估算恒指科技期指隱含開盤 ({e})")
+        return None
+
+
+def estimate_southbound_proxy(lookback_days=60):
+    """
+    當無法取得真實南向資金數據時，用市場公開數據模擬一個
+    「疑似南向資金流向」代理分數（方向性指標，非真實金額）。
+
+    組成訊號：
+    1. AH股溢價變化（溢價收窄 = 偏買入H股訊號）
+    2. 恒生ETF(2800.HK)量能異常（放量上漲 = 偏流入訊號）
+    3. 國企指數(^HSCE)相對上證指數(000001.SS)超額報酬
+
+    回傳: dict，包含 proxy_score(-1~1)、方向標籤、各分項z-score、免責聲明。
+    失敗時回傳 None，交由prompt誠實標註「數據未提供」。
+    """
+    try:
+        # 1. AH溢價代理：用恒生AH股溢價指數(^HSAHP)作為現成溢價指標
+        ah_premium = yf.download("^HSAHP", period=f"{lookback_days}d",
+                                  interval="1d", progress=False)["Close"]
+        ah_change = ah_premium.pct_change().dropna()
+        ah_signal = -ah_change.iloc[-1]  # 溢價下降(負變化) -> 轉正訊號(偏買H股)
+
+        # 2. 2800.HK 量能異常
+        etf = yf.download("2800.HK", period=f"{lookback_days}d",
+                           interval="1d", progress=False)
+        vol_ma20 = etf["Volume"].rolling(20).mean()
+        vol_ratio = float(etf["Volume"].iloc[-1] / vol_ma20.iloc[-1]) - 1
+        price_up = float(etf["Close"].pct_change().iloc[-1]) > 0
+        etf_signal = vol_ratio if price_up else -vol_ratio
+
+        # 3. 國企指數 vs 上證指數 相對超額報酬
+        hscei = yf.download("^HSCE", period=f"{lookback_days}d",
+                             interval="1d", progress=False)["Close"].pct_change()
+        sse = yf.download("000001.SS", period=f"{lookback_days}d",
+                           interval="1d", progress=False)["Close"].pct_change()
+        aligned = hscei.align(sse, join="inner")
+        excess_ret = (aligned[0] - aligned[1]).dropna()
+        excess_signal = float(excess_ret.iloc[-1])
+
+        # 標準化 (用各自序列的歷史std做簡易z-score)
+        def z(signal, series_std):
+            return signal / series_std if series_std > 0 else 0
+
+        z1 = z(ah_signal, ah_change.std())
+        z2 = z(etf_signal, 1.0)  # vol_ratio本身已是比例, 不再除std
+        z3 = z(excess_signal, excess_ret.std())
+
+        composite = round(float(np.clip((z1 + z2 + z3) / 3, -1, 1)), 3)
+        direction = "疑似流入" if composite > 0.15 else (
+            "疑似流出" if composite < -0.15 else "中性/不明顯")
+
+        return {
+            "proxy_score": composite,
+            "direction": direction,
+            "components": {
+                "AH溢價訊號": round(float(z1), 3),
+                "2800.HK量能訊號": round(float(z2), 3),
+                "國企vs上證超額報酬": round(float(z3), 3),
+            },
+            "disclaimer": "此為市場公開數據推算之方向性代理指標，非HKEX官方南向資金真實淨流入金額，僅供參考",
+        }
+    except Exception as e:
+        print(f"警告: 無法計算南向資金代理指標 ({e})")
         return None
