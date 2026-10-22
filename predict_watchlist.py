@@ -177,7 +177,7 @@ def predict_single_target(target_label, ticker):
             "context_data": {
                 "RSI14": round(rsi_latest, 1),
                 "MACD_hist": round(macd_hist_latest, 4),
-                "news_headlines": [],  # news_fetch整合待確認實際function簽名, 暫留空list
+                "news_headlines": fetch_latest_news(ticker, max_items=3),
             },
         }
         return result
