@@ -21,7 +21,11 @@ from src.ensemble import stack_predictions, agreement_score
 from src.garch_model import fit_garch_forecast
 from src.risk import predict_next_ohlc, compute_entry_exit
 from src.hit_rate import resolve_pending_predictions, log_new_prediction, get_hit_rate
+from src.news_fetch import fetch_latest_news, flag_potential_catalyst      # 新增
+from src.macro_data import get_southbound_flow, estimate_southbound_proxy, \
+    estimate_hstech_implied_open                                           # 新增
 from config import WATCHLIST, HSI_TICKER, SECTOR_MAP
+
 
 try:
     from src.llm_analysis import (generate_hsi_analysis,
@@ -152,6 +156,24 @@ def predict_single_target(target_label, ticker):
         log_new_prediction(target_label, ticker, run_date, direction, last_close)
         hit_rate_str, hit_rate_n = get_hit_rate(ticker)
 
+        # ---- 新增：實際抓取新聞 ----
+        news = fetch_latest_news(ticker, max_items=3)
+
+        # ---- 新增：context_data 擴充（僅HSI/指數類target才附加宏觀欄位）----
+        context_data = {
+            "RSI14": round(rsi_latest, 1),
+            "MACD_hist": round(macd_hist_latest, 4),
+            "news_headlines": news,
+        }
+        if target_label == "HSI":
+            southbound = get_southbound_flow()               # 先試真實數據
+            if southbound is None:
+                southbound = estimate_southbound_proxy()      # 失敗則fallback模擬代理
+            context_data["南向資金"] = southbound
+            context_data["恒指科技期指隱含開盤"] = estimate_hstech_implied_open()
+            context_data["重要消息催化_初篩"] = flag_potential_catalyst(news)
+      
+
         result = {
             "target": target_label,
             "ticker": ticker,
@@ -174,11 +196,7 @@ def predict_single_target(target_label, ticker):
             "hit_rate": hit_rate_str,
             "hit_rate_samples": hit_rate_n,
             "RSI14": round(rsi_latest, 1),
-            "context_data": {
-                "RSI14": round(rsi_latest, 1),
-                "MACD_hist": round(macd_hist_latest, 4),
-                "news_headlines": fetch_latest_news(ticker, max_items=3),
-            },
+            "context_data": context_data,   # 改為引用上面組好的dict
         }
         return result
 
