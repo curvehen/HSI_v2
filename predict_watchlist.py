@@ -203,26 +203,34 @@ def predict_single_target(target_label, ticker):
     except Exception as e:
         return {"target": target_label, "ticker": ticker, "error": str(e)}
 
+# 這些key全部是「量化模型推論出來的結論」，絕對不能給LLM看，
+# 否則LLM只會複述模型答案，失去作為獨立2nd option的意義。
+MODEL_DERIVED_KEYS = {
+    "ensemble_proba_up", "lstm_proba_up", "agreement",
+    "predicted_ohlc", "suggested_entry", "suggested_stop_loss",
+    "suggested_take_profit", "risk_reward_ratio", "risk_reward_rating",
+    "confidence_filter_pass", "hit_rate", "hit_rate_samples",
+    "garch_daily_vol_forecast",  # GARCH預測波動率本身也是模型輸出, 一併排除
+}
+
+def build_independent_payload(r):
+    """
+    從完整結果中剝離所有模型推論數值, 只保留「原始客觀數據」,
+    讓LLM在完全看不到量化模型結論的情況下獨立判斷方向。
+    """
+    return {k: v for k, v in r.items() if k not in MODEL_DERIVED_KEYS}
 
 def attach_llm_analysis(results):
-    """為每個result加llm_analysis文字欄位。LLM唔可用時跳過, 唔會令pipeline中斷。"""
-    if not LLM_AVAILABLE:
-        for r in results:
-            r["llm_analysis"] = None
-        return results
-
     for r in results:
         if r.get("error"):
-            r["llm_analysis"] = None
             continue
-        try:
-            if r["target"] == "HSI":
-                r["llm_analysis"] = generate_hsi_analysis(r)
-            else:
-                r["llm_analysis"] = generate_stock_analysis(r)
-        except Exception as e:
-            print(f"警告: {r['target']} LLM分析失敗 ({e})")
-            r["llm_analysis"] = None
+
+        independent_payload = build_independent_payload(r)  # 新增: 過濾後的乾淨payload
+
+        if r["target"] == "HSI":
+            r["llm_analysis"] = generate_hsi_analysis(independent_payload)
+        else:
+            r["llm_analysis"] = generate_stock_analysis(independent_payload)
     return results
 
 
