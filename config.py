@@ -192,5 +192,8 @@ EMAIL_RECEIVERS = []  # 由環境變數或另外設定注入
 _receivers_env = os.environ.get("EMAIL_RECEIVERS", "")
 EMAIL_RECEIVERS = [e.strip() for e in _receivers_env.split(",") if e.strip()]
 
-
-
+# ---- OPENROUNT DEEPSEEK ----
+# AFTER
+OPENROUTER_MODEL = "deepseek/deepseek-r1"   # think mode(reasoner), 非 deepseek/deepseek-chat
+LLM_MAX_TOKENS = 6000   # ⚠️ 必須大幅提高: R1思考過程本身消耗大量token, 原2500唔夠輸出完整答案就會被截斷
+LLM_TEMPERATURE = 0.3
