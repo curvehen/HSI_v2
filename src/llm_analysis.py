@@ -88,3 +88,19 @@ def _call_llm(prompt_text, max_tokens=None, retries=2):
                 continue
 
     return f"[LLM分析為空或失敗, 已重試{retries}次仍未成功: {last_error}]"
+
+
+def generate_hsi_analysis(payload):
+    prompt = build_hsi_prompt(payload)
+    return _call_llm(prompt, max_tokens=2500)
+
+
+def generate_stock_analysis(payload):
+    prompt = build_stock_prompt(payload)
+    return _call_llm(prompt, max_tokens=2000)
+
+
+def generate_watchlist_summary(results):
+    prompt = build_watchlist_summary_prompt(results)
+    # Summary要處理19隻股嘅合併表格, 需要大幅提高token上限
+    return _call_llm(prompt, max_tokens=4000)
