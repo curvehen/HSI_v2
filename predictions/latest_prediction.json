@@ -1,20 +1,20 @@
 {
   "target": "HSI",
   "target_ticker": "^HSI",
-  "run_date": "2026-10-29",
-  "last_known_close": 23094.83,
-  "ensemble_proba_up": 0.7103,
-  "lstm_proba_up": 0.4981,
-  "agreement": "disagree",
-  "garch_daily_vol_forecast": 0.01191,
+  "run_date": "2026-10-30",
+  "last_known_close": 22958.65,
+  "ensemble_proba_up": 0.7247,
+  "lstm_proba_up": 0.5052,
+  "agreement": "agree_weak",
+  "garch_daily_vol_forecast": 0.01165,
   "predicted_ohlc": {
-    "expected_open": 23114.0,
-    "expected_high": 23385.3,
-    "expected_low": 23031.5,
-    "expected_close": 23162.2
+    "expected_open": 22983.0,
+    "expected_high": 23251.9,
+    "expected_low": 22905.0,
+    "expected_close": 23033.0
   },
-  "suggested_entry": 23114.0,
-  "suggested_stop_loss": 22732.01,
-  "suggested_take_profit": 23686.99,
-  "confidence_filter_pass": false
+  "suggested_entry": 22983.0,
+  "suggested_stop_loss": 22611.94,
+  "suggested_take_profit": 23539.59,
+  "confidence_filter_pass": true
 }
