@@ -54,3 +54,4 @@ run_date,ensemble_proba_up,agreement,predicted_open,predicted_high,predicted_low
 2026-11-05,0.6705,agree_weak,23937.1,24185.5,23851.2,23975.0,HSI
 2026-11-06,0.0822,disagree,24870.9,24925.6,24492.5,24767.5,HSI
 2026-11-09,0.8267,agree_strong,24506.1,24853.9,24434.9,24588.6,HSI
+2026-11-10,0.8733,agree_strong,24480.8,24846.8,24417.6,24574.7,HSI
