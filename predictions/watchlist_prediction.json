@@ -1,39 +1,39 @@
 {
-  "run_date": "2026-11-25",
+  "run_date": "2026-11-26",
   "scenario_context": "平日",
-  "generated_at": "2026-11-25 09:41:25",
+  "generated_at": "2026-11-26 09:18:35",
   "watchlist_summary": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]",
   "results": [
     {
       "target": "HSI",
       "ticker": "^HSI",
       "sector": "—",
-      "run_date": "2026-11-25",
-      "last_known_close": 22219.65,
-      "ensemble_proba_up": 0.1328,
-      "lstm_proba_up": 0.5366,
-      "agreement": "disagree",
+      "run_date": "2026-11-26",
+      "last_known_close": 21966.01,
+      "ensemble_proba_up": 0.8466,
+      "lstm_proba_up": 0.5278,
+      "agreement": "agree_strong",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01328,
+      "garch_daily_vol_forecast": 0.0132,
       "predicted_ohlc": {
-        "expected_open": 22090.1,
-        "expected_high": 22154.8,
-        "expected_low": 21723.4,
-        "expected_close": 21996.9
+        "expected_open": 21859.3,
+        "expected_high": 22195.5,
+        "expected_low": 21795.3,
+        "expected_close": 21941.9
       },
-      "ret_1d": -0.0073,
-      "suggested_entry": 22090.1,
-      "suggested_stop_loss": 22512.891,
-      "suggested_take_profit": 21455.913,
+      "ret_1d": -0.0114,
+      "suggested_entry": 21859.3,
+      "suggested_stop_loss": 21462.257,
+      "suggested_take_profit": 22454.865,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "hit_rate": "90.0%",
       "hit_rate_samples": 20,
-      "RSI14": 28.2,
+      "RSI14": 6.8,
       "context_data": {
-        "RSI14": 28.2,
-        "MACD_hist": -174.1199,
+        "RSI14": 6.8,
+        "MACD_hist": -190.6085,
         "news_headlines": [
           {
             "title": "Bilibili HK shares jump over 7% as Q3 beat snap 10-session losing streak",
@@ -56,7 +56,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126,
+        "權重股平均報酬": 0.0128,
         "南向資金": null,
         "恒指期貨隱含開盤方向": null,
         "重要消息催化_初篩": null
@@ -67,47 +67,47 @@
       "target": "騰訊控股",
       "ticker": "0700.HK",
       "sector": "科技",
-      "run_date": "2026-11-25",
-      "last_known_close": 341.6,
-      "ensemble_proba_up": 0.0072,
-      "lstm_proba_up": 0.5939,
-      "agreement": "disagree",
+      "run_date": "2026-11-26",
+      "last_known_close": 337.4,
+      "ensemble_proba_up": 0.7645,
+      "lstm_proba_up": 0.6269,
+      "agreement": "agree_strong",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.02625,
+      "garch_daily_vol_forecast": 0.02547,
       "predicted_ohlc": {
-        "expected_open": 338.0,
-        "expected_high": 339.5,
-        "expected_low": 323.9,
-        "expected_close": 333.8
+        "expected_open": 334.0,
+        "expected_high": 343.9,
+        "expected_low": 331.4,
+        "expected_close": 336.0
       },
-      "ret_1d": -0.007,
-      "suggested_entry": 338.0,
-      "suggested_stop_loss": 352.214,
-      "suggested_take_profit": 316.679,
+      "ret_1d": -0.0123,
+      "suggested_entry": 334.0,
+      "suggested_stop_loss": 321.043,
+      "suggested_take_profit": 353.436,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "hit_rate": "95.0%",
       "hit_rate_samples": 20,
-      "RSI14": 26.0,
+      "RSI14": 3.8,
       "context_data": {
-        "RSI14": 26.0,
-        "MACD_hist": -5.8863,
+        "RSI14": 3.8,
+        "MACD_hist": -5.7668,
         "news_headlines": [
           {
-            "title": "Prosus first-half profit falls 27% as Tencent disposal gains shrink",
+            "title": "JPMorgan sees $450B in AI bond issuance in 2027",
             "publisher": "Investing.com",
-            "published": "2026-11-25T08:14:37Z"
+            "published": "2026-11-25T21:58:24Z"
           },
           {
-            "title": "Prosus Posts Lower Net Profit on Smaller Gain From Tencent Stock Sales",
-            "publisher": "The Wall Street Journal",
-            "published": "2026-11-25T06:36:00Z"
+            "title": "JPMorgan Sees $450 Billion AI Debt Blitz in 2027 Before Plateau",
+            "publisher": "Bloomberg",
+            "published": "2026-11-25T21:17:21Z"
           },
           {
-            "title": "Michael Burry Says Nvidia's ‘Precarious Normal’ Returns With Jensen Huang Back At The Helm: Loads Up On JD, Tencent, BYD Stocks",
-            "publisher": "Stocktwits",
-            "published": "2026-11-24T19:02:17Z"
+            "title": "Michael Burry Loads Up on 3 Chinese Stocks; Sticks to Nvidia Bearish Bet",
+            "publisher": "TipRanks",
+            "published": "2026-11-25T19:13:45Z"
           }
         ],
         "美股隔夜": {
@@ -115,7 +115,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -123,47 +123,47 @@
       "target": "阿里巴巴",
       "ticker": "9988.HK",
       "sector": "科技",
-      "run_date": "2026-11-25",
-      "last_known_close": 82.2,
-      "ensemble_proba_up": 0.0344,
-      "lstm_proba_up": 0.4235,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 81.2,
+      "ensemble_proba_up": 0.8308,
+      "lstm_proba_up": 0.4187,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.03329,
+      "garch_daily_vol_forecast": 0.0322,
       "predicted_ohlc": {
-        "expected_open": 81.6,
-        "expected_high": 82.1,
-        "expected_low": 77.2,
-        "expected_close": 80.3
+        "expected_open": 80.7,
+        "expected_high": 84.1,
+        "expected_low": 80.0,
+        "expected_close": 81.5
       },
-      "ret_1d": -0.0102,
-      "suggested_entry": 81.6,
-      "suggested_stop_loss": 86.075,
-      "suggested_take_profit": 74.888,
+      "ret_1d": -0.0122,
+      "suggested_entry": 80.7,
+      "suggested_stop_loss": 76.575,
+      "suggested_take_profit": 86.887,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "hit_rate": "85.0%",
       "hit_rate_samples": 20,
-      "RSI14": 27.6,
+      "RSI14": 8.4,
       "context_data": {
-        "RSI14": 27.6,
-        "MACD_hist": -1.3903,
+        "RSI14": 8.4,
+        "MACD_hist": -1.2348,
         "news_headlines": [
           {
-            "title": "Alibaba weighs offshore bond sale next year to fund AI expansion - Bloomberg",
-            "publisher": "Investing.com",
-            "published": "2026-11-25T04:21:59Z"
+            "title": "How Export Blacklisting Will Impact Alibaba Stock Investors",
+            "publisher": "Simply Wall St.",
+            "published": "2026-11-25T22:08:53Z"
           },
           {
-            "title": "U.S. adds Megaspeed, Alibaba unit to export blacklist over chip diversion risks",
+            "title": "JPMorgan sees $450B in AI bond issuance in 2027",
             "publisher": "Investing.com",
-            "published": "2026-11-25T03:12:09Z"
+            "published": "2026-11-25T21:58:24Z"
           },
           {
-            "title": "Stocks to Watch Recap: Nvidia, Alibaba, Hewlett Packard",
-            "publisher": "The Wall Street Journal",
-            "published": "2026-11-24T23:26:19Z"
+            "title": "JPMorgan Sees $450 Billion AI Debt Blitz in 2027 Before Plateau",
+            "publisher": "Bloomberg",
+            "published": "2026-11-25T21:17:21Z"
           }
         ],
         "美股隔夜": {
@@ -171,7 +171,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -179,47 +179,47 @@
       "target": "中國移動",
       "ticker": "0941.HK",
       "sector": "電訊",
-      "run_date": "2026-11-25",
-      "last_known_close": 78.75,
-      "ensemble_proba_up": 0.1932,
-      "lstm_proba_up": 0.3947,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 78.45,
+      "ensemble_proba_up": 0.9446,
+      "lstm_proba_up": 0.4343,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.00845,
+      "garch_daily_vol_forecast": 0.0083,
       "predicted_ohlc": {
-        "expected_open": 78.6,
-        "expected_high": 78.7,
-        "expected_low": 77.9,
-        "expected_close": 78.4
+        "expected_open": 78.3,
+        "expected_high": 79.1,
+        "expected_low": 78.2,
+        "expected_close": 78.5
       },
-      "ret_1d": -0.0025,
-      "suggested_entry": 78.6,
-      "suggested_stop_loss": 79.418,
-      "suggested_take_profit": 77.373,
+      "ret_1d": -0.0038,
+      "suggested_entry": 78.3,
+      "suggested_stop_loss": 77.493,
+      "suggested_take_profit": 79.511,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "hit_rate": "60.0%",
       "hit_rate_samples": 20,
-      "RSI14": 29.4,
+      "RSI14": 12.0,
       "context_data": {
-        "RSI14": 29.4,
-        "MACD_hist": -0.2258,
+        "RSI14": 12.0,
+        "MACD_hist": -0.2804,
         "news_headlines": [
           {
-            "title": "Australian Defensive Stocks With Pricing Power As Inflation Stays Higher For Longer",
-            "publisher": "Simply Wall St.",
-            "published": "2026-11-25T09:11:14Z"
-          },
-          {
-            "title": "Prediction: Here’s What Anthropic’s Valuation Will Be in 2027, According to History",
+            "title": "The Nasdaq Fell Below Correction Territory: 2 Beaten-Down Nasdaq Stocks to Buy and Hold",
             "publisher": "Motley Fool",
-            "published": "2026-11-25T08:58:02Z"
+            "published": "2026-11-26T08:50:02Z"
           },
           {
-            "title": "Newly-Listed Airtel Mobile to Replace IG Group in FTSE 100 Index Review",
-            "publisher": "The Wall Street Journal",
-            "published": "2026-11-25T08:54:00Z"
+            "title": "CoreWeave (CRWV) Debt Sale Wins Investment Grade Ratings",
+            "publisher": "Simply Wall St.",
+            "published": "2026-11-26T08:09:08Z"
+          },
+          {
+            "title": "Where Upwork Goes After A 58% Drop",
+            "publisher": "Simply Wall St.",
+            "published": "2026-11-26T07:11:00Z"
           }
         ],
         "美股隔夜": {
@@ -227,7 +227,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -235,32 +235,32 @@
       "target": "友邦保險",
       "ticker": "1299.HK",
       "sector": "金融",
-      "run_date": "2026-11-25",
-      "last_known_close": 74.0,
-      "ensemble_proba_up": 0.1385,
-      "lstm_proba_up": 0.4753,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 73.4,
+      "ensemble_proba_up": 0.5528,
+      "lstm_proba_up": 0.4916,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01606,
+      "garch_daily_vol_forecast": 0.01585,
       "predicted_ohlc": {
-        "expected_open": 73.4,
-        "expected_high": 73.6,
-        "expected_low": 71.9,
-        "expected_close": 73.0
+        "expected_open": 72.8,
+        "expected_high": 73.7,
+        "expected_low": 72.3,
+        "expected_close": 72.8
       },
-      "ret_1d": 0.0,
-      "suggested_entry": 73.4,
-      "suggested_stop_loss": 75.154,
-      "suggested_take_profit": 70.77,
+      "ret_1d": -0.0081,
+      "suggested_entry": 72.8,
+      "suggested_stop_loss": 71.111,
+      "suggested_take_profit": 75.334,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "hit_rate": "75.0%",
       "hit_rate_samples": 20,
-      "RSI14": 35.7,
+      "RSI14": 19.9,
       "context_data": {
-        "RSI14": 35.7,
-        "MACD_hist": -0.5753,
+        "RSI14": 19.9,
+        "MACD_hist": -0.6343,
         "news_headlines": [
           {
             "title": "Zacks Industry Outlook Highlights AIA, Manulife Financial, Sun Life Financial, Reinsurance Group of America and Baldwin Insurance",
@@ -283,7 +283,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -291,32 +291,32 @@
       "target": "香港交易所",
       "ticker": "0388.HK",
       "sector": "金融",
-      "run_date": "2026-11-25",
-      "last_known_close": 352.6,
-      "ensemble_proba_up": 0.0594,
-      "lstm_proba_up": 0.4675,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 346.8,
+      "ensemble_proba_up": 0.9342,
+      "lstm_proba_up": 0.4684,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01714,
+      "garch_daily_vol_forecast": 0.01723,
       "predicted_ohlc": {
-        "expected_open": 351.0,
-        "expected_high": 352.0,
-        "expected_low": 343.4,
-        "expected_close": 348.9
+        "expected_open": 345.8,
+        "expected_high": 353.2,
+        "expected_low": 344.9,
+        "expected_close": 347.9
       },
-      "ret_1d": 0.0034,
-      "suggested_entry": 351.0,
-      "suggested_stop_loss": 359.057,
-      "suggested_take_profit": 338.914,
+      "ret_1d": -0.0164,
+      "suggested_entry": 345.8,
+      "suggested_stop_loss": 337.914,
+      "suggested_take_profit": 357.629,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
-      "hit_rate": "90.0%",
+      "confidence_filter_pass": false,
+      "hit_rate": "80.0%",
       "hit_rate_samples": 20,
-      "RSI14": 23.7,
+      "RSI14": 6.5,
       "context_data": {
-        "RSI14": 23.7,
-        "MACD_hist": -3.0225,
+        "RSI14": 6.5,
+        "MACD_hist": -3.4728,
         "news_headlines": [
           {
             "title": "Hong Kong Exchange Operator’s Profit Slips as Trading, Listing Activity Cools",
@@ -339,7 +339,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -347,32 +347,32 @@
       "target": "美團",
       "ticker": "3690.HK",
       "sector": "科技",
-      "run_date": "2026-11-25",
-      "last_known_close": 64.2,
-      "ensemble_proba_up": 0.2474,
-      "lstm_proba_up": 0.4208,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 61.45,
+      "ensemble_proba_up": 0.9785,
+      "lstm_proba_up": 0.2614,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.03065,
+      "garch_daily_vol_forecast": 0.03192,
       "predicted_ohlc": {
-        "expected_open": 63.9,
+        "expected_open": 61.2,
         "expected_high": 64.7,
-        "expected_low": 61.1,
-        "expected_close": 63.3
+        "expected_low": 60.8,
+        "expected_close": 62.2
       },
-      "ret_1d": -0.0331,
-      "suggested_entry": 63.9,
-      "suggested_stop_loss": 67.636,
-      "suggested_take_profit": 58.296,
+      "ret_1d": -0.0428,
+      "suggested_entry": 61.2,
+      "suggested_stop_loss": 57.607,
+      "suggested_take_profit": 66.589,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "hit_rate": "100.0%",
       "hit_rate_samples": 20,
-      "RSI14": 28.5,
+      "RSI14": 9.5,
       "context_data": {
-        "RSI14": 28.5,
-        "MACD_hist": -0.9699,
+        "RSI14": 9.5,
+        "MACD_hist": -1.1578,
         "news_headlines": [
           {
             "title": "Chinese Stocks Are Falling Out of Favor. Just Look at JD.com Earnings.",
@@ -395,7 +395,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -403,47 +403,47 @@
       "target": "滙豐控股",
       "ticker": "0005.HK",
       "sector": "金融",
-      "run_date": "2026-11-25",
-      "last_known_close": 130.6,
-      "ensemble_proba_up": 0.067,
-      "lstm_proba_up": 0.4476,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 128.6,
+      "ensemble_proba_up": 0.3727,
+      "lstm_proba_up": 0.4966,
+      "agreement": "agree_weak",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01812,
+      "garch_daily_vol_forecast": 0.01788,
       "predicted_ohlc": {
-        "expected_open": 129.5,
-        "expected_high": 129.9,
-        "expected_low": 126.5,
-        "expected_close": 128.7
+        "expected_open": 127.6,
+        "expected_high": 128.3,
+        "expected_low": 125.7,
+        "expected_close": 127.3
       },
-      "ret_1d": 0.0077,
-      "suggested_entry": 129.5,
-      "suggested_stop_loss": 132.743,
-      "suggested_take_profit": 124.636,
+      "ret_1d": -0.0153,
+      "suggested_entry": 127.6,
+      "suggested_stop_loss": 130.614,
+      "suggested_take_profit": 123.079,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
       "confidence_filter_pass": true,
-      "hit_rate": "95.0%",
+      "hit_rate": "85.0%",
       "hit_rate_samples": 20,
-      "RSI14": 40.9,
+      "RSI14": 28.1,
       "context_data": {
-        "RSI14": 40.9,
-        "MACD_hist": -0.4494,
+        "RSI14": 28.1,
+        "MACD_hist": -0.5428,
         "news_headlines": [
           {
-            "title": "Eurozone Bond Yields Track Treasury Yields Lower",
+            "title": "Why HSBC Thinks Stocks Are in a Sweet Spot",
+            "publisher": "Barrons.com",
+            "published": "2026-11-25T19:05:00Z"
+          },
+          {
+            "title": "U.S. 7-Year Treasury Auction Shows Softer Demand",
             "publisher": "The Wall Street Journal",
-            "published": "2026-11-25T08:30:00Z"
+            "published": "2026-11-25T17:08:00Z"
           },
           {
-            "title": "Bitcoin now counts as collateral: From the CFTC to the ECB",
-            "publisher": "Yahoo Finance Video",
-            "published": "2026-11-24T17:37:02Z"
-          },
-          {
-            "title": "HSBC Holdings (LSE:HSBA) Appoints Neha Ghai To Global Private Bank Role",
-            "publisher": "Simply Wall St.",
-            "published": "2026-11-24T16:11:50Z"
+            "title": "Citigroup Eyes Venezuela Re-Entry: Can It Grow Cross-Border Payments?",
+            "publisher": "Zacks",
+            "published": "2026-11-25T14:20:00Z"
           }
         ],
         "美股隔夜": {
@@ -451,7 +451,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -459,47 +459,47 @@
       "target": "小米集團",
       "ticker": "1810.HK",
       "sector": "科技",
-      "run_date": "2026-11-25",
-      "last_known_close": 26.5,
-      "ensemble_proba_up": 0.9626,
-      "lstm_proba_up": 0.4732,
+      "run_date": "2026-11-26",
+      "last_known_close": 26.56,
+      "ensemble_proba_up": 0.9565,
+      "lstm_proba_up": 0.4569,
       "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.03046,
+      "garch_daily_vol_forecast": 0.02971,
       "predicted_ohlc": {
-        "expected_open": 26.3,
-        "expected_high": 27.6,
-        "expected_low": 26.2,
-        "expected_close": 26.7
+        "expected_open": 26.5,
+        "expected_high": 27.7,
+        "expected_low": 26.3,
+        "expected_close": 26.8
       },
-      "ret_1d": -0.0371,
-      "suggested_entry": 26.3,
-      "suggested_stop_loss": 24.966,
-      "suggested_take_profit": 28.301,
+      "ret_1d": 0.0023,
+      "suggested_entry": 26.5,
+      "suggested_stop_loss": 25.197,
+      "suggested_take_profit": 28.454,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
       "confidence_filter_pass": false,
       "hit_rate": "70.0%",
       "hit_rate_samples": 20,
-      "RSI14": 38.7,
+      "RSI14": 18.6,
       "context_data": {
-        "RSI14": 38.7,
-        "MACD_hist": -0.4069,
+        "RSI14": 18.6,
+        "MACD_hist": -0.4548,
         "news_headlines": [
+          {
+            "title": "Why Xiaomi Products Are Everywhere",
+            "publisher": "The Hustle",
+            "published": "2026-11-25T18:33:17Z"
+          },
+          {
+            "title": "Xiaomi’s Memory-Squeezed Phone Sales Are Bad News for Qualcomm. Here’s the Number That Matters",
+            "publisher": "TIKR",
+            "published": "2026-11-25T05:23:47Z"
+          },
           {
             "title": "Xiaomi shares jump over 8% as premium phone sales cushion rising chip costs",
             "publisher": "Investing.com",
             "published": "2026-11-25T04:57:49Z"
-          },
-          {
-            "title": "Xiaomi’s Profit Continues to Fall Amid Weaker Revenue Across Businesses",
-            "publisher": "The Wall Street Journal",
-            "published": "2026-11-24T12:06:00Z"
-          },
-          {
-            "title": "Xiaomi's Sales Slip After Memory Shortages Weigh on Smartphones",
-            "publisher": "Bloomberg",
-            "published": "2026-11-24T09:35:24Z"
           }
         ],
         "美股隔夜": {
@@ -507,7 +507,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -515,32 +515,32 @@
       "target": "中國平安",
       "ticker": "2318.HK",
       "sector": "金融",
-      "run_date": "2026-11-25",
-      "last_known_close": 50.2,
-      "ensemble_proba_up": 0.501,
-      "lstm_proba_up": 0.4664,
+      "run_date": "2026-11-26",
+      "last_known_close": 50.05,
+      "ensemble_proba_up": 0.4844,
+      "lstm_proba_up": 0.5238,
       "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01312,
+      "garch_daily_vol_forecast": 0.01281,
       "predicted_ohlc": {
-        "expected_open": 50.0,
-        "expected_high": 50.4,
-        "expected_low": 49.7,
-        "expected_close": 50.0
+        "expected_open": 49.9,
+        "expected_high": 50.1,
+        "expected_low": 49.4,
+        "expected_close": 49.9
       },
-      "ret_1d": 0.0101,
-      "suggested_entry": 50.0,
-      "suggested_stop_loss": 49.14,
-      "suggested_take_profit": 51.29,
+      "ret_1d": -0.003,
+      "suggested_entry": 49.9,
+      "suggested_stop_loss": 50.724,
+      "suggested_take_profit": 48.664,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
       "confidence_filter_pass": false,
       "hit_rate": "90.0%",
       "hit_rate_samples": 20,
-      "RSI14": 35.3,
+      "RSI14": 13.0,
       "context_data": {
-        "RSI14": 35.3,
-        "MACD_hist": -0.1933,
+        "RSI14": 13.0,
+        "MACD_hist": -0.1849,
         "news_headlines": [
           {
             "title": "Ping An Group To Reduce Public Equity Allocation",
@@ -563,7 +563,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -571,32 +571,32 @@
       "target": "新鴻基地產",
       "ticker": "0016.HK",
       "sector": "地產",
-      "run_date": "2026-11-25",
-      "last_known_close": 108.5,
-      "ensemble_proba_up": 0.3815,
-      "lstm_proba_up": 0.4721,
+      "run_date": "2026-11-26",
+      "last_known_close": 106.6,
+      "ensemble_proba_up": 0.513,
+      "lstm_proba_up": 0.6269,
       "agreement": "agree_weak",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01405,
+      "garch_daily_vol_forecast": 0.01461,
       "predicted_ohlc": {
-        "expected_open": 107.6,
-        "expected_high": 108.3,
-        "expected_low": 106.0,
-        "expected_close": 107.4
+        "expected_open": 106.0,
+        "expected_high": 107.2,
+        "expected_low": 105.3,
+        "expected_close": 106.0
       },
-      "ret_1d": -0.0028,
-      "suggested_entry": 107.6,
-      "suggested_stop_loss": 110.146,
-      "suggested_take_profit": 103.781,
+      "ret_1d": -0.0175,
+      "suggested_entry": 106.0,
+      "suggested_stop_loss": 103.644,
+      "suggested_take_profit": 109.535,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "hit_rate": "65.0%",
       "hit_rate_samples": 20,
-      "RSI14": 43.7,
+      "RSI14": 17.5,
       "context_data": {
-        "RSI14": 43.7,
-        "MACD_hist": -0.5089,
+        "RSI14": 17.5,
+        "MACD_hist": -0.6235,
         "news_headlines": [
           {
             "title": "Sun Hung Kai Properties (SEHK:16) Stock Looks Overvalued After Its 51% Run",
@@ -619,7 +619,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -627,32 +627,32 @@
       "target": "銀河娛樂",
       "ticker": "0027.HK",
       "sector": "博彩",
-      "run_date": "2026-11-25",
-      "last_known_close": 32.3,
-      "ensemble_proba_up": 0.8217,
-      "lstm_proba_up": 0.4301,
-      "agreement": "disagree",
+      "run_date": "2026-11-26",
+      "last_known_close": 32.76,
+      "ensemble_proba_up": 0.9571,
+      "lstm_proba_up": 0.5762,
+      "agreement": "agree_strong",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01983,
+      "garch_daily_vol_forecast": 0.01976,
       "predicted_ohlc": {
-        "expected_open": 32.1,
-        "expected_high": 32.8,
-        "expected_low": 32.0,
-        "expected_close": 32.3
+        "expected_open": 32.6,
+        "expected_high": 33.4,
+        "expected_low": 32.5,
+        "expected_close": 32.9
       },
-      "ret_1d": -0.0176,
-      "suggested_entry": 32.1,
-      "suggested_stop_loss": 31.249,
-      "suggested_take_profit": 33.377,
+      "ret_1d": 0.0142,
+      "suggested_entry": 32.6,
+      "suggested_stop_loss": 31.726,
+      "suggested_take_profit": 33.911,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "hit_rate": "90.0%",
       "hit_rate_samples": 20,
-      "RSI14": 23.8,
+      "RSI14": 25.4,
       "context_data": {
-        "RSI14": 23.8,
-        "MACD_hist": -0.2519,
+        "RSI14": 25.4,
+        "MACD_hist": -0.2336,
         "news_headlines": [
           {
             "title": "Galaxy Entertainment Group Ltd (GXYEF) (Q3 2026) Earnings Call Highlights: Revenue and EBITDA ...",
@@ -675,7 +675,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -683,32 +683,32 @@
       "target": "中國海洋石油",
       "ticker": "0883.HK",
       "sector": "能源",
-      "run_date": "2026-11-25",
-      "last_known_close": 20.86,
-      "ensemble_proba_up": 0.0145,
-      "lstm_proba_up": 0.6208,
-      "agreement": "disagree",
+      "run_date": "2026-11-26",
+      "last_known_close": 20.64,
+      "ensemble_proba_up": 0.5042,
+      "lstm_proba_up": 0.5629,
+      "agreement": "agree_weak",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01811,
+      "garch_daily_vol_forecast": 0.01769,
       "predicted_ohlc": {
-        "expected_open": 20.7,
+        "expected_open": 20.5,
         "expected_high": 20.8,
-        "expected_low": 20.2,
-        "expected_close": 20.6
+        "expected_low": 20.4,
+        "expected_close": 20.5
       },
-      "ret_1d": -0.0197,
-      "suggested_entry": 20.7,
-      "suggested_stop_loss": 21.304,
-      "suggested_take_profit": 19.794,
+      "ret_1d": -0.0105,
+      "suggested_entry": 20.5,
+      "suggested_stop_loss": 19.946,
+      "suggested_take_profit": 21.331,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
       "confidence_filter_pass": false,
       "hit_rate": "90.0%",
       "hit_rate_samples": 20,
-      "RSI14": 14.6,
+      "RSI14": 15.6,
       "context_data": {
-        "RSI14": 14.6,
-        "MACD_hist": -0.2291,
+        "RSI14": 15.6,
+        "MACD_hist": -0.2479,
         "news_headlines": [
           {
             "title": "Guyana Oil Boom Rekindles Frontier Drilling Appetite",
@@ -731,7 +731,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -739,32 +739,32 @@
       "target": "工商銀行",
       "ticker": "1398.HK",
       "sector": "金融",
-      "run_date": "2026-11-25",
-      "last_known_close": 7.685,
-      "ensemble_proba_up": 0.2594,
-      "lstm_proba_up": 0.4712,
-      "agreement": "agree_weak",
+      "run_date": "2026-11-26",
+      "last_known_close": 7.66,
+      "ensemble_proba_up": 0.7131,
+      "lstm_proba_up": 0.4734,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01314,
+      "garch_daily_vol_forecast": 0.01291,
       "predicted_ohlc": {
-        "expected_open": 7.7,
+        "expected_open": 7.6,
         "expected_high": 7.7,
         "expected_low": 7.6,
-        "expected_close": 7.6
+        "expected_close": 7.7
       },
-      "ret_1d": -0.0109,
-      "suggested_entry": 7.7,
-      "suggested_stop_loss": 7.831,
-      "suggested_take_profit": 7.503,
+      "ret_1d": -0.0033,
+      "suggested_entry": 7.6,
+      "suggested_stop_loss": 7.47,
+      "suggested_take_profit": 7.794,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
-      "hit_rate": "70.0%",
+      "confidence_filter_pass": false,
+      "hit_rate": "65.0%",
       "hit_rate_samples": 20,
-      "RSI14": 43.4,
+      "RSI14": 35.3,
       "context_data": {
-        "RSI14": 43.4,
-        "MACD_hist": -0.0374,
+        "RSI14": 35.3,
+        "MACD_hist": -0.0458,
         "news_headlines": [
           {
             "title": "Financial close reached on $2.1bn Taweelah C power plant",
@@ -787,7 +787,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -795,32 +795,32 @@
       "target": "中國銀行",
       "ticker": "3988.HK",
       "sector": "金融",
-      "run_date": "2026-11-25",
+      "run_date": "2026-11-26",
       "last_known_close": 6.17,
-      "ensemble_proba_up": 0.3546,
-      "lstm_proba_up": 0.4455,
-      "agreement": "agree_weak",
+      "ensemble_proba_up": 0.766,
+      "lstm_proba_up": 0.4535,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01203,
+      "garch_daily_vol_forecast": 0.01158,
       "predicted_ohlc": {
-        "expected_open": 6.1,
+        "expected_open": 6.2,
         "expected_high": 6.2,
         "expected_low": 6.1,
-        "expected_close": 6.1
+        "expected_close": 6.2
       },
-      "ret_1d": 0.0073,
-      "suggested_entry": 6.1,
-      "suggested_stop_loss": 6.224,
-      "suggested_take_profit": 5.914,
+      "ret_1d": 0.0,
+      "suggested_entry": 6.2,
+      "suggested_stop_loss": 6.084,
+      "suggested_take_profit": 6.374,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
+      "confidence_filter_pass": false,
       "hit_rate": "90.0%",
       "hit_rate_samples": 20,
-      "RSI14": 64.2,
+      "RSI14": 56.1,
       "context_data": {
-        "RSI14": 64.2,
-        "MACD_hist": -0.0117,
+        "RSI14": 56.1,
+        "MACD_hist": -0.0134,
         "news_headlines": [
           {
             "title": "Hong Kong, Swift and Major Banks Test Blockchain-Based Cross-Border Payments",
@@ -843,7 +843,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -851,33 +851,38 @@
       "target": "中電控股",
       "ticker": "0002.HK",
       "sector": "公用",
-      "run_date": "2026-11-25",
-      "last_known_close": 79.85,
-      "ensemble_proba_up": 0.8449,
-      "lstm_proba_up": 0.4876,
-      "agreement": "disagree",
+      "run_date": "2026-11-26",
+      "last_known_close": 80.35,
+      "ensemble_proba_up": 0.0416,
+      "lstm_proba_up": 0.4703,
+      "agreement": "agree_strong",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.00877,
+      "garch_daily_vol_forecast": 0.00864,
       "predicted_ohlc": {
-        "expected_open": 79.6,
-        "expected_high": 80.5,
-        "expected_low": 79.5,
-        "expected_close": 79.8
+        "expected_open": 80.2,
+        "expected_high": 80.3,
+        "expected_low": 79.2,
+        "expected_close": 79.9
       },
-      "ret_1d": -0.0087,
-      "suggested_entry": 79.6,
-      "suggested_stop_loss": 78.568,
-      "suggested_take_profit": 81.148,
+      "ret_1d": 0.0063,
+      "suggested_entry": 80.2,
+      "suggested_stop_loss": 81.246,
+      "suggested_take_profit": 78.63,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "hit_rate": "80.0%",
       "hit_rate_samples": 20,
-      "RSI14": 50.4,
+      "RSI14": 52.8,
       "context_data": {
-        "RSI14": 50.4,
-        "MACD_hist": -0.143,
+        "RSI14": 52.8,
+        "MACD_hist": -0.1932,
         "news_headlines": [
+          {
+            "title": "CLP Holdings (SEHK:2) Stock Looks Fully Valued Against Its Cash Flow Outlook",
+            "publisher": "Simply Wall St.",
+            "published": "2026-11-26T05:19:12Z"
+          },
           {
             "title": "AVA or CLPHY: Which Is the Better Value Stock Right Now?",
             "publisher": "Zacks",
@@ -887,11 +892,6 @@
             "title": "Is CLP (CLPHY) Outperforming Other Utilities Stocks This Year?",
             "publisher": "Zacks",
             "published": "2026-09-29T12:40:05Z"
-          },
-          {
-            "title": "CLP Holdings (SEHK:2) Could Be 3% Undervalued As Regulated Growth Comes Into Focus",
-            "publisher": "Simply Wall St.",
-            "published": "2026-09-20T03:19:29Z"
           }
         ],
         "美股隔夜": {
@@ -899,7 +899,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -907,32 +907,32 @@
       "target": "長和",
       "ticker": "0001.HK",
       "sector": "地產",
-      "run_date": "2026-11-25",
-      "last_known_close": 64.2,
-      "ensemble_proba_up": 0.6197,
-      "lstm_proba_up": 0.474,
-      "agreement": "disagree",
+      "run_date": "2026-11-26",
+      "last_known_close": 63.6,
+      "ensemble_proba_up": 0.9884,
+      "lstm_proba_up": 0.5493,
+      "agreement": "agree_strong",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.01587,
+      "garch_daily_vol_forecast": 0.015,
       "predicted_ohlc": {
-        "expected_open": 64.0,
+        "expected_open": 63.5,
         "expected_high": 65.0,
-        "expected_low": 63.6,
-        "expected_close": 64.1
+        "expected_low": 63.3,
+        "expected_close": 63.9
       },
       "ret_1d": -0.0093,
-      "suggested_entry": 64.0,
-      "suggested_stop_loss": 62.396,
-      "suggested_take_profit": 66.405,
+      "suggested_entry": 63.5,
+      "suggested_stop_loss": 61.946,
+      "suggested_take_profit": 65.83,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": false,
+      "confidence_filter_pass": true,
       "hit_rate": "80.0%",
       "hit_rate_samples": 20,
-      "RSI14": 32.5,
+      "RSI14": 17.2,
       "context_data": {
-        "RSI14": 32.5,
-        "MACD_hist": -0.6466,
+        "RSI14": 17.2,
+        "MACD_hist": -0.7096,
         "news_headlines": [
           {
             "title": "CK Hutchison shares fall as Panama files criminal complaint amid ports dispute",
@@ -955,7 +955,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -963,47 +963,47 @@
       "target": " 比亞迪股份",
       "ticker": "1211.HK",
       "sector": "汽車",
-      "run_date": "2026-11-25",
-      "last_known_close": 60.3,
-      "ensemble_proba_up": 0.0516,
-      "lstm_proba_up": 0.5707,
+      "run_date": "2026-11-26",
+      "last_known_close": 57.95,
+      "ensemble_proba_up": 0.348,
+      "lstm_proba_up": 0.6269,
       "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.02441,
+      "garch_daily_vol_forecast": 0.02526,
       "predicted_ohlc": {
-        "expected_open": 60.0,
-        "expected_high": 60.3,
-        "expected_low": 57.6,
-        "expected_close": 59.3
+        "expected_open": 57.7,
+        "expected_high": 58.2,
+        "expected_low": 56.1,
+        "expected_close": 57.4
       },
-      "ret_1d": -0.0147,
-      "suggested_entry": 60.0,
-      "suggested_stop_loss": 62.475,
-      "suggested_take_profit": 56.288,
+      "ret_1d": -0.039,
+      "suggested_entry": 57.7,
+      "suggested_stop_loss": 60.104,
+      "suggested_take_profit": 54.095,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
       "confidence_filter_pass": false,
       "hit_rate": "90.0%",
       "hit_rate_samples": 20,
-      "RSI14": 18.4,
+      "RSI14": 0.6,
       "context_data": {
-        "RSI14": 18.4,
-        "MACD_hist": -0.6771,
+        "RSI14": 0.6,
+        "MACD_hist": -0.7821,
         "news_headlines": [
           {
-            "title": "BYD plans car production in France to boost its push into the European market",
-            "publisher": "Euronews",
-            "published": "2026-11-25T09:03:01Z"
+            "title": "Michael Burry Loads Up on 3 Chinese Stocks; Sticks to Nvidia Bearish Bet",
+            "publisher": "TipRanks",
+            "published": "2026-11-25T19:13:45Z"
           },
           {
-            "title": "Michael Burry Says Nvidia's ‘Precarious Normal’ Returns With Jensen Huang Back At The Helm: Loads Up On JD, Tencent, BYD Stocks",
-            "publisher": "Stocktwits",
-            "published": "2026-11-24T19:02:17Z"
+            "title": "BYD vs. General Motors: Which Carmaker Stock Is a Better Buy for 2027?",
+            "publisher": "Motley Fool",
+            "published": "2026-11-25T18:43:02Z"
           },
           {
-            "title": "Jim Ratcliffe to sell Ineos car factory to China’s BYD",
-            "publisher": "The Telegraph",
-            "published": "2026-11-24T18:01:39Z"
+            "title": "JLR wins EU ban on BYD’s alleged copycat Land Rover Defender",
+            "publisher": "Wards Auto",
+            "published": "2026-11-25T17:10:00Z"
           }
         ],
         "美股隔夜": {
@@ -1011,7 +1011,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     },
@@ -1019,32 +1019,32 @@
       "target": "信義光能",
       "ticker": "0968.HK",
       "sector": "光伏",
-      "run_date": "2026-11-25",
-      "last_known_close": 1.665,
-      "ensemble_proba_up": 0.0528,
-      "lstm_proba_up": 0.4429,
-      "agreement": "agree_strong",
+      "run_date": "2026-11-26",
+      "last_known_close": 1.645,
+      "ensemble_proba_up": 0.1214,
+      "lstm_proba_up": 0.6032,
+      "agreement": "disagree",
       "regime": "HIGH_VOL",
-      "garch_daily_vol_forecast": 0.02944,
+      "garch_daily_vol_forecast": 0.0291,
       "predicted_ohlc": {
-        "expected_open": 1.7,
+        "expected_open": 1.6,
         "expected_high": 1.7,
         "expected_low": 1.6,
         "expected_close": 1.6
       },
-      "ret_1d": -0.0431,
-      "suggested_entry": 1.7,
-      "suggested_stop_loss": 1.795,
-      "suggested_take_profit": 1.557,
+      "ret_1d": -0.012,
+      "suggested_entry": 1.6,
+      "suggested_stop_loss": 1.691,
+      "suggested_take_profit": 1.464,
       "risk_reward_ratio": 1.5,
       "risk_reward_rating": "良",
-      "confidence_filter_pass": true,
-      "hit_rate": "80.0%",
+      "confidence_filter_pass": false,
+      "hit_rate": "85.0%",
       "hit_rate_samples": 20,
-      "RSI14": 18.5,
+      "RSI14": 7.9,
       "context_data": {
-        "RSI14": 18.5,
-        "MACD_hist": -0.0323,
+        "RSI14": 7.9,
+        "MACD_hist": -0.0353,
         "news_headlines": [
           {
             "title": "Has Xinyi Solar Holdings (SEHK:968) Fallen Far Enough To Look Fully Priced?",
@@ -1062,7 +1062,7 @@
           "nasdaq_ret": 0.0
         },
         "人民幣匯率變動": NaN,
-        "權重股平均報酬": -0.0126
+        "權重股平均報酬": 0.0128
       },
       "llm_analysis": "[LLM分析暫時無法生成: 環境變數OPENROUTER_API_KEY未設定]"
     }
